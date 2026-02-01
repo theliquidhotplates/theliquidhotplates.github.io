@@ -1,7 +1,11 @@
-/* The Liquid Hotplates - Modern & Sleek Styles */
+/* ====================================================================
+   THE LIQUID HOTPLATES - WEBSITE STYLES
+   ==================================================================== */
 
+/* ===== FONTS ===== */
 @import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap');
 
+/* ===== COLOR VARIABLES ===== */
 :root {
   --royal-blue: #0953EA;
   --off-white: #FFF7EF;
@@ -10,6 +14,7 @@
   --light-gray: #2a2a2a;
 }
 
+/* ===== GLOBAL RESET ===== */
 * {
   margin: 0;
   padding: 0;
@@ -23,7 +28,11 @@ body {
   line-height: 1.6;
 }
 
-/* ===== NAVIGATION ===== */
+
+/* ====================================================================
+   NAVIGATION BAR
+   ==================================================================== */
+
 .navbar {
   position: fixed;
   top: 0;
@@ -55,7 +64,6 @@ body {
 }
 
 .site-name {
-  font-family: 'General Sans', sans-serif;
   font-size: 1.3rem;
   font-weight: 700;
   color: var(--off-white);
@@ -79,6 +87,7 @@ body {
   letter-spacing: 0.3px;
 }
 
+/* Underline animation on hover */
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -100,7 +109,11 @@ body {
   width: 100%;
 }
 
-/* ===== TYPOGRAPHY ===== */
+
+/* ====================================================================
+   TYPOGRAPHY
+   ==================================================================== */
+
 h1, h2, h3 {
   font-family: 'General Sans', sans-serif;
 }
@@ -128,7 +141,11 @@ h3 {
   letter-spacing: -0.3px;
 }
 
-/* ===== LAYOUT ===== */
+
+/* ====================================================================
+   LAYOUT & SECTIONS
+   ==================================================================== */
+
 .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -137,27 +154,6 @@ h3 {
 
 .section {
   padding: 6rem 0;
-}
-
-.page-hero {
-  padding: 10rem 5% 5rem;
-  text-align: center;
-  background: linear-gradient(135deg, var(--black) 0%, var(--gray) 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-.page-hero h1 {
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, var(--off-white), var(--royal-blue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.page-hero p {
-  font-size: 1.3rem;
-  opacity: 0.8;
 }
 
 .section-intro {
@@ -169,11 +165,11 @@ h3 {
   line-height: 1.5;
 }
 
-.alumni-section {
-  background: var(--gray);
-}
 
-/* ===== HERO SECTION WITH BACKGROUND ===== */
+/* ====================================================================
+   HERO SECTIONS (Homepage & Members Page)
+   ==================================================================== */
+
 .hero {
   min-height: 90vh;
   display: flex;
@@ -186,32 +182,44 @@ h3 {
   overflow: hidden;
 }
 
-/* Background image/video for hero */
+/* Homepage hero with background image */
 .hero-home {
-  /* OPTION 1: Background Image - uncomment and add your image */
   background-image: url('images/ICCA-2025.jpg');
   background-size: cover;
-  background-position: center;
+  background-position: center; /* CHANGE: center top, center bottom, 50% 30%, etc. */
   background-repeat: no-repeat;
-  
-  /* OPTION 2: Video background - see instructions below */
 }
 
-/* Dark overlay so text is readable */
-.hero-overlay {
+/* Members page hero with background image */
+.hero-members {
+  background-image: url('images/current-members.jpeg');
+  background-size: cover;
+  background-position: center center; /* CHANGE: same options as above */
+  background-repeat: no-repeat;
+}
+
+/* Dark overlay so text is readable over images */
+.hero-overlay,
+.hero-members::before {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(0, 0, 0, 0.65); /* CHANGE: 0.65 = 65% dark, adjust 0-1 */
   z-index: 1;
+}
+
+.hero-content,
+.hero-members h1,
+.hero-members p {
+  position: relative;
+  z-index: 2; /* Keeps text above overlay */
 }
 
 .hero-content {
   max-width: 900px;
-  position: relative;
-  z-index: 2;
 }
 
 .hero h1 {
@@ -233,32 +241,32 @@ h3 {
   margin-top: 2rem;
 }
 
-.hero-members {
-  background-image: url('images/members-bg.jpg'); /* Add your members photo */
-  background-size: cover;
-  background-position: center center; /* Adjust as needed */
-  background-repeat: no-repeat;
-}
-
-/* Add overlay for readability */
-.hero-members::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1;
-}
-
-.hero-members h1,
-.hero-members p {
+/* Page hero (for members, events, etc.) */
+.page-hero {
+  padding: 10rem 5% 5rem;
+  text-align: center;
   position: relative;
-  z-index: 2;
+  overflow: hidden;
 }
 
-/* ===== BUTTONS WITH HOVER EFFECTS ===== */
+.page-hero h1 {
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--off-white), var(--royal-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-hero p {
+  font-size: 1.3rem;
+  opacity: 0.8;
+}
+
+
+/* ====================================================================
+   BUTTONS
+   ==================================================================== */
+
 .btn {
   display: inline-block;
   padding: 1rem 2.5rem;
@@ -276,6 +284,7 @@ h3 {
   backdrop-filter: blur(10px);
 }
 
+/* Ripple effect on hover */
 .btn::before {
   content: '';
   position: absolute;
@@ -301,8 +310,9 @@ h3 {
   box-shadow: 0 15px 35px rgba(9, 83, 234, 0.5);
 }
 
+/* Outline button variant */
 .btn-outline {
-  background-color: rgba(255, 255, 255, 0.15); /* Even more transparent */
+  background-color: rgba(255, 255, 255, 0.15);
   border: 2px solid rgba(255, 255, 255, 0.4);
   color: var(--off-white);
 }
@@ -313,23 +323,33 @@ h3 {
   border-color: var(--royal-blue);
 }
 
-/* ===== SCROLL ANIMATIONS ===== */
-.fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+/* Small button (for flip cards) */
+.btn-small {
+  display: inline-block;
+  padding: 0.75rem 1.75rem;
+  background-color: var(--royal-blue);
+  color: var(--off-white);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 50px;
+  transition: all 0.3s;
+  font-size: 0.9rem;
 }
 
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
+.btn-small:hover {
+  background-color: #0742c4;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(9, 83, 234, 0.4);
 }
 
-/* ===== FLIP CARDS (Members) ===== */
-/* ===== FLIP CARDS (Members) ===== */
+
+/* ====================================================================
+   MEMBER FLIP CARDS (members.html)
+   ==================================================================== */
+
 .members-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 2rem;
   margin-top: 3rem;
 }
@@ -337,7 +357,7 @@ h3 {
 .flip-card {
   background-color: transparent;
   width: 100%;
-  height: 400px;
+  height: 460px; /* CHANGE: Adjust card height */
   perspective: 1000px;
 }
 
@@ -364,38 +384,46 @@ h3 {
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem 1.5rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
+/* Front of card */
 .flip-card-front {
   background: rgba(26, 26, 26, 0.6);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  padding-bottom: 0.75rem; /* Half the normal padding at bottom */
+  align-items: center;
+  justify-content: flex-start;
 }
 
+/* Back of card */
 .flip-card-back {
   background: rgba(9, 83, 234, 0.15);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(9, 83, 234, 0.3);
   color: var(--off-white);
   transform: rotateY(180deg);
+  padding: 2rem 1.5rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-/* Member Photo */
+/* Member photo - TALL RECTANGLE with rounded corners */
 .member-photo {
-  width: 150px;
-  height: 150px;
-  border-radius: 12px;
+  width: 100%;
+  max-width: 200px; /* CHANGE: Max width of photo */
+  height: 280px; /* CHANGE: Height of photo (tall rectangle) */
+  border-radius: 15px; /* CHANGE: Corner roundness */
   overflow: hidden;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.25rem; /* CHANGE: Space between photo and name */
   background: var(--light-gray);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   font-weight: 700;
   color: var(--royal-blue);
   border: 2px solid rgba(9, 83, 234, 0.3);
@@ -407,40 +435,42 @@ h3 {
   object-fit: cover;
 }
 
-/* Name */
+/* Info section at bottom - NO wrapper div needed, just direct children */
 .flip-card-front h3 {
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.3rem; /* CHANGE: Name size */
+  margin-bottom: 0.2rem; /* CHANGE: Space after name */
   font-weight: 600;
   color: var(--off-white);
+  line-height: 1.2;
 }
 
-/* Leadership title (Music Director, President, etc.) */
-.member-title {
+/* Leadership title (President, Music Director, etc.) */
+.flip-card-front .member-title {
   color: var(--royal-blue);
   font-weight: 600;
-  font-size: 0.7rem;
+  font-size: 0.7rem; /* CHANGE: Title size */
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.15rem; /* CHANGE: Space after title */
 }
 
-/* Voice part */
-.member-part {
+/* Voice part (Soprano, Alto, etc.) */
+.flip-card-front .member-part {
   color: rgba(255, 255, 255, 0.7);
-  font-size: 0.9rem;
-  margin-bottom: 0.3rem;
+  font-size: 0.85rem; /* CHANGE: Part size */
+  margin-bottom: 0.1rem; /* CHANGE: Space after part */
   font-weight: 500;
 }
 
-/* Year */
-.member-year {
+/* Graduation year */
+.flip-card-front .member-year {
   color: rgba(255, 255, 255, 0.6);
-  font-size: 0.9rem;
+  font-size: 0.85rem; /* CHANGE: Year size */
   font-weight: 400;
+  margin-bottom: 0; /* No space after year */
 }
 
-/* Back of card */
+/* Back of card styles */
 .flip-card-back h3 {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
@@ -450,24 +480,26 @@ h3 {
 .flip-card-back .member-title {
   color: var(--royal-blue);
   margin-bottom: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .flip-card-back .member-part {
   color: rgba(255, 255, 255, 0.8);
   font-size: 0.95rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
-/* Bio on back */
 .member-bio {
   font-size: 0.9rem;
   line-height: 1.5;
   opacity: 0.9;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem; /* CHANGE: Tighter spacing between bio lines */
   max-width: 90%;
 }
 
-/* Flip hint */
 .flip-hint {
   font-size: 0.75rem;
   opacity: 0.5;
@@ -475,7 +507,10 @@ h3 {
   font-style: italic;
 }
 
-/* ===== INFO FLIP CARDS (What We Do section) ===== */
+/* ====================================================================
+   INFO FLIP CARDS (Homepage "What We Do" section)
+   ==================================================================== */
+
 .info-flip-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -548,7 +583,36 @@ h3 {
   margin-bottom: 1.5rem;
 }
 
-/* ===== FOOTER ===== */
+
+/* ====================================================================
+   ALUMNI SECTION
+   ==================================================================== */
+
+.alumni-section {
+  background: var(--gray);
+}
+
+
+/* ====================================================================
+   SCROLL ANIMATIONS
+   ==================================================================== */
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ====================================================================
+   FOOTER
+   ==================================================================== */
+
 footer {
   background-color: var(--light-gray);
   text-align: center;
@@ -562,7 +626,11 @@ footer p {
   font-size: 0.9rem;
 }
 
-/* ===== RESPONSIVE ===== */
+
+/* ====================================================================
+   RESPONSIVE DESIGN (Mobile/Tablet)
+   ==================================================================== */
+
 @media (max-width: 768px) {
   .nav-container {
     flex-direction: column;
@@ -587,6 +655,6 @@ footer p {
   }
   
   .flip-card {
-    height: 400px;
+    height: 450px;
   }
 }
