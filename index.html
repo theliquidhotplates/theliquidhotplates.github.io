@@ -6,6 +6,32 @@
   <title>The Liquid Hotplates - UC Davis A Cappella</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
+
+
+<!-- ANIMATIONSSSSSSSSSSSSSSS -->
+<script>
+// Scroll fade-in animations
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, observerOptions);
+
+// Add fade-in class to elements you want to animate
+document.querySelectorAll('.section, .info-flip-card, h2').forEach(el => {
+  el.classList.add('fade-in');
+  observer.observe(el);
+});
+</script>
+
 <body>
   <!-- Navigation -->
   <nav class="navbar">
@@ -18,52 +44,70 @@
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="members.html">Members</a></li>
         <li><a href="events.html">Events</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="contactus.html">Contact Us</a></li>
       </ul>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero hero-home">
+    <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1>🔥 The Liquid Hotplates</h1>
-      <p>UC Davis's hottest a cappella group, bringing the heat to every performance. We're more than just voices - we're a family of musicians dedicated to making magic through harmony.</p>
+      <h1>The Liquid Hotplates</h1>
+      <p>UC Davis's HOTTEST acapella group.</p>
       
       <div class="social-links">
-        <a href="https://youtube.com/@yourusername" target="_blank" class="btn">
+        <a href="https://youtube.com/@liquidhotplates" target="_blank" class="btn">
           🎥 YouTube
         </a>
-        <a href="https://instagram.com/yourusername" target="_blank" class="btn btn-outline">
+        <a href="https://instagram.com/liquidhotplates" target="_blank" class="btn btn-outline">
           📸 Instagram
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Group Photo Section -->
-  <section class="container">
-    <div class="group-photo">
-      <h2>Meet The Plates</h2>
-      <div class="photo-frame">
-        <div class="photo-placeholder">
-          Your Group Photo Here
-        </div>
-      </div>
+  <!-- Who We Are -->
+  <section class="section">
+    <div class="container" style="text-align: center; max-width: 900px; margin: 0 auto;">
+      <h2>Who We Are</h2>
+      <p style="font-size: 1.15rem; line-height: 1.6; opacity: 0.95;">
+        Established in 2000, The Liquid Hotplates is University of California, Davis's hottest all-gender acapella group on campus. We have competed in ICCAs, [IDK WE NEED AN INTRO HELPPPPPPPPPPPPPP]
+      </p>
+      <a href="members.html" class="btn" style="margin-top: 2.5rem;">Meet The Team</a>
     </div>
   </section>
 
-  <!-- Quick About -->
-  <section class="container" style="text-align: center; max-width: 800px; margin: 4rem auto;">
-    <h2>Who We Are</h2>
-    <p style="font-size: 1.2rem; line-height: 1.8;">
-      We're The Liquid Hotplates, UC Davis's premier a cappella group. Since [YEAR], we've been heating up stages across California with our unique blend of contemporary hits, classic favorites, and original arrangements.
-    </p>
-    <a href="about.html" class="btn" style="margin-top: 2rem;">Learn Our Story</a>
-  </section>
+  <!-- What We Do - FLIP CARDS VERSION -->
+  <section class="section" style="background: #0a0a0a; padding: 5rem 5%;">
+    <div class="container">
+      <h2 style="margin-bottom: 3rem;">What We Do</h2>
+      <div class="info-flip-grid">
+        
+        <!-- Performances Card -->
+        <div class="info-flip-card">
+          <div class="info-flip-inner">
+            <div class="info-flip-front">
+              <div class="feature-icon">🎤</div>
+              <h3>Performances</h3>
+              <p>Campus showcases, private events, and more</p>
+            </div>
+            <div class="info-flip-back">
+              <h3>Book Us</h3>
+              <p>Want us to perform at your event? We bring energy and passion to every stage.</p>
+              <a href="contact.html" class="btn-small">Contact Us</a>
+            </div>
+          </div>
+        </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 The Liquid Hotplates | UC Davis</p>
-  </footer>
-</body>
-</html>
+        <!-- Competitions Card -->
+        <div class="info-flip-card">
+          <div class="info-flip-inner">
+            <div class="info-flip-front">
+              <div class="feature-icon">🏆</div>
+              <h3>Competitions</h3>
+              <p>Competing at ICCA against the best</p>
+            </div>
+            <div class="info-flip-back">
+              <h3>ICCA Journey</h3>
+              <p
