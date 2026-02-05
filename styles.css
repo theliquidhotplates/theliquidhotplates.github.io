@@ -463,6 +463,24 @@ h3 {
   margin-bottom: 0.15rem; /* CHANGE: Space after title */
 }
 
+/* Orange award badge for members */
+.member-award {
+  color: #FF6B35; /* Orange color */
+  font-weight: 600;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.15rem;
+  background: rgba(255, 107, 53, 0.15);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  display: inline-block;
+}
+
+.flip-card-front .member-award {
+  color: #FF6B35;
+}
+
 /* Voice part (Soprano, Alto, etc.) */
 .flip-card-front .member-part {
   color: rgba(255, 255, 255, 0.7);
@@ -477,6 +495,11 @@ h3 {
   font-size: 0.85rem; /* CHANGE: Year size */
   font-weight: 400;
   margin-bottom: 0; /* No space after year */
+}
+
+.flip-card-back .member-award {
+  color: #FF6B35;
+  background: rgba(255, 107, 53, 0.2);
 }
 
 /* Back of card styles */
