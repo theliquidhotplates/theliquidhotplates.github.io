@@ -5,6 +5,17 @@
 /* ===== FONTS ===== */
 @import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap');
 
+/* Mona Sans - body text font. Real variable font, hosted for free on Fontsource's
+   CDN (via jsDelivr), so this just works with no extra setup on your end. */
+@font-face {
+  font-family: 'Mona Sans Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 900;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/mona-sans:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 
 /* ============== LOGO ========== */
 .logo-img {
@@ -30,7 +41,7 @@
 }
 
 body {
-  font-family: 'General Sans', sans-serif;
+  font-family: 'Mona Sans Variable', 'General Sans', sans-serif;
   background-color: var(--black);
   color: var(--off-white);
   line-height: 1.6;
@@ -118,7 +129,7 @@ body {
    ==================================================================== */
 
 h1, h2, h3 {
-  font-family: 'General Sans', sans-serif;
+  font-family: 'Mona Sans Variable', 'General Sans', sans-serif;
 }
 
 h1 {
@@ -229,6 +240,27 @@ h3 {
 .hero h1 {
   margin-bottom: 1.5rem;
   font-size: 4.5rem;
+}
+
+/* Animated multi-color gradient text - a moving rainbow sweep across the text,
+   built to recreate the look of a "text reveal" effect (like magicui's
+   DiaTextReveal) using plain CSS, since this site has no React/build step to
+   run an actual React component. Reusable: add class="gradient-text" to any
+   heading you want this effect on. CHANGE: edit the 4 colors in the gradient,
+   or the `6s` duration below, to adjust the look/speed. */
+.gradient-text {
+  background-image: linear-gradient(90deg, #22d3ee, #818cf8, #f472b6, #34d399, #22d3ee);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradient-text-move 6s linear infinite;
+}
+
+@keyframes gradient-text-move {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
 }
 
 .hero p {
@@ -901,6 +933,113 @@ h3 {
   transform: scale(1.03);
   border-color: var(--royal-blue);
   box-shadow: 0 10px 30px rgba(9, 83, 234, 0.4);
+}
+
+/* ====================================================================
+   GLOWING GRADIENT BADGE (Who We Are section)
+   Adapted from a Uiverse.io snippet by Cksunandh. Original used vmin units
+   sized for a big standalone hero display; resized here with fixed px values
+   to work as a smaller side accent instead. CHANGE the width/height/font-size
+   below to make the badge bigger or smaller.
+   ==================================================================== */
+
+.who-we-are-layout {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.who-we-are-content {
+  flex: 1;
+  text-align: left; /* overrides the centered default on h2/p for this section only */
+}
+
+.who-we-are-content h2 {
+  text-align: left;
+}
+
+.glow-badge {
+  position: relative;
+  flex-shrink: 0; /* keeps the badge from getting squeezed by the text next to it */
+  width: 140px; /* CHANGE: badge size */
+  height: 140px;
+  background: linear-gradient(135deg, #1e1e24 10%, #050505 60%);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  animation: gradient-shift 5s ease-in-out infinite;
+  background-size: 200% 200%;
+}
+
+.glow-badge .badge-mark {
+  display: inline-block;
+  font-size: 2.5rem; /* CHANGE: mark size */
+  color: white;
+  background-image: linear-gradient(to right, #626262, #fff);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-weight: bold;
+}
+
+.glow-badge::before,
+.glow-badge::after {
+  --size: 5px;
+  content: '';
+  position: absolute;
+  top: calc(var(--size) / -2);
+  left: calc(var(--size) / -2);
+  width: calc(100% + var(--size));
+  height: calc(100% + var(--size));
+  border-radius: 20px;
+  background: radial-gradient(circle at 0 0, hsl(27deg 93% 60%), transparent),
+    radial-gradient(circle at 100% 0, #00a6ff, transparent),
+    radial-gradient(circle at 0 100%, #ff0056, transparent),
+    radial-gradient(circle at 100% 100%, #6500ff, transparent);
+}
+
+.glow-badge::after {
+  --size: 2px;
+  z-index: -1;
+}
+
+.glow-badge::before {
+  --size: 10px;
+  z-index: -2;
+  filter: blur(14px);
+  animation: badge-blur 3s ease-in-out alternate infinite;
+}
+
+@keyframes badge-blur {
+  to {
+    filter: blur(20px);
+    transform: scale(1.05);
+  }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (max-width: 768px) {
+  .who-we-are-layout {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .who-we-are-content {
+    text-align: center;
+  }
+
+  .who-we-are-content h2 {
+    text-align: center;
+  }
 }
 
 /* ====================================================================
