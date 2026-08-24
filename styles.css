@@ -200,18 +200,8 @@ h3 {
   min-height: 100vh; /* CHANGE: full-screen hero image */
 }
 
-/* Members page hero with background image */
-.hero-members {
-  background-image: url('images/current-members.jpeg');
-  background-size: cover;
-  background-position: center center; /* CHANGE: same options as above */
-  background-repeat: no-repeat;
-}
-
 /* Dark overlay so text is readable over images */
-.hero-overlay,
-.hero-members::before {
-  content: '';
+.hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -221,14 +211,9 @@ h3 {
   z-index: 1;
 }
 
-.hero-content,
-.hero-members h1,
-.hero-members p {
+.hero-content {
   position: relative;
   z-index: 2; /* Keeps text above overlay */
-}
-
-.hero-content {
   max-width: 900px;
 }
 
@@ -700,9 +685,103 @@ h3 {
    EVENTS TIMELINE (vertical) - EVENTS PAGE
    ==================================================================== */
 
+/* Aurora background accent - subtle blurred, slowly-drifting color blobs
+   fixed behind the page content. Currently used on the Events page only (see
+   the <div class="page-aurora-bg"> right after <body> in events.html) - to
+   reuse it on another page, just add that same div to that page's <body>. */
+.page-aurora-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.page-aurora-bg::before,
+.page-aurora-bg::after {
+  content: '';
+  position: absolute;
+  width: 55vw;
+  height: 55vw;
+  border-radius: 50%;
+  filter: blur(120px); /* CHANGE: bigger = softer/more diffuse glow */
+  opacity: 0.28; /* CHANGE: raise for a more visible glow, lower for more subtle */
+}
+
+.page-aurora-bg::before {
+  background: var(--royal-blue);
+  top: -15%;
+  left: -10%;
+  animation: aurora-drift-a 20s ease-in-out infinite alternate;
+}
+
+.page-aurora-bg::after {
+  background: #3d7bf5; /* CHANGE: a lighter shade of --royal-blue, for a bit of depth without going purple */
+  bottom: -20%;
+  right: -10%;
+  animation: aurora-drift-b 24s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-drift-a {
+  to { transform: translate(8%, 8%) scale(1.15); }
+}
+
+@keyframes aurora-drift-b {
+  to { transform: translate(-8%, -8%) scale(1.2); }
+}
+
 .events-timeline {
   max-width: 700px;
   margin: 0 auto;
+}
+
+/* Page title, left-aligned to line up with the timeline's vertical line below it.
+   The 0.875rem offset = half the width of the .timeline-marker column (1.75rem / 2)
+   - i.e. exactly where the dots and connecting line sit. (Note: the timeline
+   item's own padding doesn't factor in here, since its matching negative
+   margin cancels it out.) If you resize .timeline-marker later, update this
+   to match - it should always be half of that width. */
+.events-page-header {
+  padding-left: 0.875rem;
+  margin-bottom: 2.5rem;
+}
+
+.events-page-header h1 {
+  text-align: left;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--off-white), var(--royal-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.events-page-header p {
+  text-align: left;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Members page title - same gradient-text treatment as the Events page title,
+   just centered instead of left-aligned (Members doesn't have a timeline line
+   to align against). */
+.members-page-header {
+  text-align: center;
+  padding: 9rem 5% 1rem;
+}
+
+.members-page-header h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--off-white), var(--royal-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.members-page-header p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* Year/season heading, e.g. "2025-2026" */
@@ -737,7 +816,7 @@ h3 {
 }
 
 .timeline-item:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(100, 116, 150, 0.22); /* CHANGE: a muted blue-grey - raise the 0.22 for more solid, lower for more see-through */
 }
 
 /* Dot + connecting line column */
@@ -831,31 +910,113 @@ h3 {
 
 
 /* ====================================================================
-   EVENT SUBPAGE - PHOTO GALLERY
+   EVENT AWARDS - for event subpages (e.g. ICCA results)
+   Same visual language as the orange .member-award badges on the Members
+   page, just under its own name since it's used in a different context.
    ==================================================================== */
 
-.event-photo-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 3rem;
+.event-awards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 2.5rem;
 }
 
-.event-photo-gallery img {
+.event-award-badge {
+  color: #FF6B35;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: rgba(255, 107, 53, 0.15);
+  padding: 0.5rem 1.1rem;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+/* Wrap a name in this anywhere in an event page's body text to call it out -
+   e.g. "<span class="name-highlight">Lik Yau Chow</span> took home Best VP." */
+.name-highlight {
+  color: var(--royal-blue);
+  font-weight: 600;
+}
+
+/* ====================================================================
+   TETRIS / MASONRY PHOTO GALLERY
+   Reusable in two places: event subpage photo galleries (plain), and the
+   homepage's "Through The Years" gallery (with a hover year-label overlay).
+   Uses CSS columns rather than a manually-sized grid, so it automatically
+   flows however many photos you add - no per-photo sizing to maintain, and
+   it naturally packs together (the "tetris" look) since each photo just
+   keeps its own real aspect ratio instead of being cropped to a fixed box.
+   ==================================================================== */
+
+.tetris-gallery {
+  columns: 3 260px; /* CHANGE: "3" = target column count, "260px" = minimum width per column before it drops to fewer columns on narrower screens */
+  column-gap: 1rem;
+}
+
+.tetris-gallery img {
   width: 100%;
-  height: 280px;
-  object-fit: cover;
+  display: block;
   border-radius: 12px;
-  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  break-inside: avoid; /* keeps a photo from getting split across two columns */
   cursor: pointer;
-  border: 2px solid transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.event-photo-gallery img:hover {
-  transform: scale(1.03);
-  border-color: var(--royal-blue);
+.tetris-gallery img:hover {
+  transform: scale(1.02);
   box-shadow: 0 10px 30px rgba(9, 83, 234, 0.4);
 }
+
+/* Homepage variant: each photo gets a hover overlay showing its year */
+.tetris-gallery-item {
+  position: relative;
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.tetris-gallery-item img {
+  width: 100%;
+  display: block;
+  margin-bottom: 0; /* the wrapper above already has the margin */
+  border-radius: 0; /* the wrapper's overflow:hidden + border-radius already clips this */
+  transition: transform 0.4s ease;
+}
+
+.tetris-gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+.tetris-year-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--off-white);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tetris-gallery-item:hover .tetris-year-overlay {
+  opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .tetris-gallery {
+    columns: 2 160px;
+  }
+}
+
 
 /* ====================================================================
    GLOWING GRADIENT BADGE (Who We Are section)
