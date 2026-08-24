@@ -108,12 +108,14 @@ body {
   letter-spacing: 0.3px;
   padding: 0.6rem 1.4rem; /* CHANGE: bigger = fatter pills, smaller = tighter */
   border-radius: 50px;
-  transition: background 0.25s ease, color 0.25s ease;
+  border: 1px solid transparent; /* reserves space for the hover border below, so nothing shifts/resizes on hover */
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-  background: var(--royal-blue);
+  background: rgba(9, 83, 234, 0.18); /* CHANGE: raise for more fill, lower for more see-through */
+  border-color: var(--royal-blue);
   color: var(--off-white);
 }
 
@@ -695,214 +697,125 @@ h3 {
 
 
 /* ====================================================================
-   HORIZONTAL TIMELINE - EVENTS PAGE
+   EVENTS TIMELINE (vertical) - EVENTS PAGE
    ==================================================================== */
 
-.timeline-horizontal-container {
-  width: 100%;
-  overflow-x: auto;
-  overflow-y: visible; /* Allow overflow */
-  padding: 0 5%;
-  padding-top: 280px; /* CHANGED: Add top padding for top cards */
-  padding-bottom: 280px; /* CHANGED: Add bottom padding for bottom cards */
-  scroll-behavior: smooth;
+.events-timeline {
+  max-width: 700px;
+  margin: 0 auto;
 }
 
-/* Styled scrollbar */
-.timeline-horizontal-container::-webkit-scrollbar {
-  height: 10px;
+/* Year/season heading, e.g. "2025-2026" */
+.timeline-year-heading {
+  padding-left: 0.5rem;
+  margin: 3rem 0 0.5rem;
 }
 
-.timeline-horizontal-container::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
+.timeline-year-heading:first-child {
+  margin-top: 0;
 }
 
-.timeline-horizontal-container::-webkit-scrollbar-thumb {
-  background: linear-gradient(90deg, rgba(9, 83, 234, 0.6), var(--royal-blue));
-  border-radius: 10px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
+.timeline-year-heading h3 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.5);
 }
 
-.timeline-horizontal-container::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(90deg, var(--royal-blue), rgba(9, 83, 234, 0.8));
-}
-
-.timeline-horizontal {
+/* Each event row - the whole thing is a clickable link to that event's page */
+.timeline-item {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  gap: 1rem;
   position: relative;
-  min-width: max-content;
-  padding: 0; /* CHANGED: Remove padding, using container padding instead */
+  text-decoration: none;
+  color: inherit;
+  border-radius: 12px;
+  padding: 0.5rem;
+  margin: 0 -0.5rem; /* offsets the padding so the hover background isn't inset from the year heading above it */
+  transition: background 0.2s ease;
 }
 
-/* Horizontal line */
-.timeline-horizontal::before {
+.timeline-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Dot + connecting line column */
+.timeline-marker {
+  position: relative;
+  flex-shrink: 0;
+  width: 1.75rem;
+  display: flex;
+  justify-content: center;
+  padding-top: 0.4rem;
+}
+
+.timeline-marker::after {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 2px;
-  background: linear-gradient(90deg, rgba(9, 83, 234, 0.2), var(--royal-blue), rgba(9, 83, 234, 0.2));
-  transform: translateY(-50%);
+  top: 1.75rem;
+  bottom: -1.5rem; /* extends down into the gap before the next item, so the line looks continuous */
+  left: 50%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.15);
 }
 
-/* Timeline items */
-.timeline-h-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  margin: 0 5rem; /* Space between events */
+.timeline-item:last-child .timeline-marker::after {
+  display: none; /* no trailing line hanging off the very last event */
 }
 
-/* Dots on timeline */
-.timeline-h-dot {
-  width: 18px;
-  height: 18px;
+.timeline-dot {
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: var(--royal-blue);
-  border: 4px solid var(--black);
-  box-shadow: 0 0 0 4px rgba(9, 83, 234, 0.3);
-  z-index: 2;
+  background: var(--black);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   position: relative;
+  z-index: 1;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-/* Present dot - JUST A GLOWING DOT */
-.timeline-h-dot-present {
-  width: 30px;
-  height: 30px;
+.timeline-item:hover .timeline-dot {
+  border-color: var(--royal-blue);
   background: var(--royal-blue);
-  box-shadow: 0 0 0 6px rgba(9, 83, 234, 0.4), 0 0 25px rgba(9, 83, 234, 0.8);
-  animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-  0%, 100% {
-    box-shadow: 0 0 0 6px rgba(9, 83, 234, 0.4), 0 0 25px rgba(9, 83, 234, 0.8);
-  }
-  50% {
-    box-shadow: 0 0 0 12px rgba(9, 83, 234, 0.2), 0 0 35px rgba(9, 83, 234, 1);
-  }
+/* Event content */
+.timeline-content {
+  flex-grow: 1;
+  padding-bottom: 1.75rem;
 }
 
-/* Cards container */
-.timeline-h-card {
-  width: 350px;
-  height: 250px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Cards above timeline */
-.timeline-h-top {
-  position: absolute;
-  bottom: 35px; /* Distance from dot */
-}
-
-/* Cards below timeline */
-.timeline-h-bottom {
-  position: absolute;
-  top: 35px; /* Distance from dot */
-}
-
-/* Present marker - REMOVED the card, just the dot now */
-.timeline-h-center {
-  display: none; /* CHANGED: Hide the Present card */
-}
-
-.present-marker {
-  display: none; /* CHANGED: Hide the Present text/logo */
-}
-
-/* Event flip cards */
-.event-card-flip {
-  width: 100%;
-  height: 100%;
-  perspective: 1000px;
-}
-
-.event-card-flip .flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-}
-
-.event-card-flip:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-.event-flip-front,
-.event-flip-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  border-radius: 15px;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.event-flip-front {
-  background: rgba(26, 26, 26, 0.9);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.event-flip-back {
-  background: rgba(9, 83, 234, 0.15);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(9, 83, 234, 0.3);
-  transform: rotateY(180deg);
-}
-
-.event-date-small {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--royal-blue);
-  background: rgba(9, 83, 234, 0.15);
-  padding: 0.4rem 1rem;
-  border-radius: 20px;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.event-flip-front h3 {
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
+.timeline-event-title {
+  font-size: 1.15rem;
+  font-weight: 600;
   color: var(--off-white);
+  margin-bottom: 0.25rem;
 }
 
-.event-location {
-  color: rgba(255, 255, 255, 0.6);
+.timeline-event-blurb {
   font-size: 0.9rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-}
-
-.event-snippet {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.65);
   line-height: 1.5;
-  font-size: 0.95rem;
+  margin-bottom: 0.6rem;
 }
 
-.event-flip-back h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: var(--off-white);
+.timeline-event-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--royal-blue);
+  background: rgba(9, 83, 234, 0.12);
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+}
+
+.timeline-event-date svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
 }
 
 /*====================================================================
