@@ -387,6 +387,22 @@ h3 {
   box-shadow: 0 10px 25px rgba(9, 83, 234, 0.4);
 }
 
+/* Small, subtle "back" link for event subpages - replaces the old full-sized
+   .btn-small button that used to sit prominently at the top of each event
+   page. This is quieter, like a breadcrumb. */
+.back-link {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--royal-blue);
+}
+
 
 /* ====================================================================
    MEMBER FLIP CARDS (members.html)
@@ -678,7 +694,17 @@ h3 {
    ==================================================================== */
 
 .alumni-section {
-  background: var(--gray);
+  background: #1A1A1A; /* CHANGE: a navy-tinted dark gray, matching the royal-blue palette instead of a neutral gray */
+}
+
+/* Closes the gap between this section's background and the footer right
+   below it - footer normally has margin-top:4rem for breathing room after a
+   plain black section, but that same margin creates a visible black gap
+   between two colored backgrounds when they're meant to sit flush. Scoped to
+   only apply when .alumni-section is immediately followed by the footer, so
+   it doesn't affect footer spacing on any other page. */
+.alumni-section + footer {
+  margin-top: 0;
 }
 
 
