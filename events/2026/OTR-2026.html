@@ -27,8 +27,9 @@
   </nav>
 
   <!-- Event Hero with Background Image -->
-  <!-- CHANGE: swap in a real photo from this event once you have one -->
-  <section class="page-hero" style="background-image: url('../../images/events/2026/OTR-2026-images/hero.jpg'); background-size: cover; background-position: center; min-height: 50vh; padding-top: 10rem;">
+  <!-- CHANGE: swap in a real photo from this event once you have one. Points at the same
+       OTR-2026-images/ folder as the gallery below, just a "hero.jpg" file within it. -->
+  <section class="page-hero" style="background-image: url('OTR-2026-images/hero.jpg'); background-size: cover; background-position: center; min-height: 50vh; padding-top: 10rem;">
     <div class="hero-overlay" style="background: rgba(0, 0, 0, 0.7);"></div>
     <div style="position: relative; z-index: 2;">
       <h1>Off The Record 2026</h1>
@@ -38,47 +39,55 @@
 
   <!-- Event Details -->
   <section class="section">
-    <div class="container" style="max-width: 900px;">
+    <div class="container">
 
       <!-- Back Button -->
       <a href="../../events.html" class="back-link">← Back to Timeline</a>
 
-      <!-- About Section -->
-      <h2>About Off The Record 2026</h2>
-      <p style="font-size: 1.1rem; line-height: 1.8; opacity: 0.9; margin-bottom: 3rem;">
-        LHP presents our annual free spring showcase - Off The Record! This year, we performed various songs arranged by many members in the group, along with our award-winning ICCA set. We also said goodbye to our Class of 2026 Seniors - <span class="name-highlight">Ellie Mizushima</span> & <span class="name-highlight">Priyanshi Singh</span>!
-      </p>
+      <!-- Readable-width wrapper for text content - the outer .container is now
+           the site-standard 1400px (matching the homepage), but 1400px-wide
+           paragraphs are uncomfortable to read, so text stays narrower here
+           while the gallery below (outside this wrapper) uses the full width. -->
+      <div style="max-width: 900px; margin: 0 auto;">
 
-      <!-- Setlist -->
-      <h3 style="margin-bottom: 1.5rem; color: var(--royal-blue);">Setlist</h3>
-      <div style="background: rgba(255, 255, 255, 0.03); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; border: 1px solid rgba(255, 255, 255, 0.1);">
-        <ol style="list-style-position: inside; line-height: 2.2; opacity: 0.9; font-size: 1.05rem;">
-          <li>Attention - Charlie Puth</li>
-          <li>Jealous - Labrinth</li>
-          <li>Here Comes the Sun - The Beatles</li>
-          <li>Night - Keshi</li>
-          <li>ICCA Set</li>
-        </ol>
-      </div>
+        <!-- About Section -->
+        <h2>About Off The Record 2026</h2>
+        <p style="font-size: 1.1rem; line-height: 1.8; opacity: 0.9; margin-bottom: 3rem;">
+          LHP presents our annual free spring showcase - Off The Record! This year, we performed various songs arranged by many members in the group, along with our award-winning ICCA set. We also said goodbye to our Class of 2026 Seniors - <span class="name-highlight">Ellie Mizushima</span> & <span class="name-highlight">Priyanshi Singh</span>!
+        </p>
 
-      <!-- YouTube Video Embed -> not doing for this event sorray-->
-      <!--
-       <h3 style="margin-bottom: 1.5rem; color: var(--royal-blue);">Watch the Performance</h3>
-      <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 15px; margin-bottom: 3rem; border: 2px solid rgba(9, 83, 234, 0.3);">
-        <iframe
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-          src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
+        <!-- Setlist -->
+        <h3 style="margin-bottom: 1.5rem; color: var(--royal-blue);">Setlist</h3>
+        <div style="background: rgba(255, 255, 255, 0.03); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+          <ol style="list-style-position: inside; line-height: 2.2; opacity: 0.9; font-size: 1.05rem;">
+            <li>Attention - Charlie Puth</li>
+            <li>Jealous - Labrinth</li>
+            <li>Here Comes the Sun - The Beatles</li>
+            <li>Night - Keshi</li>
+            <li>ICCA Set</li>
+          </ol>
+        </div>
+
+        <!-- YouTube Video Embed -> not doing for this event sorray-->
+        <!--
+         <h3 style="margin-bottom: 1.5rem; color: var(--royal-blue);">Watch the Performance</h3>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 15px; margin-bottom: 3rem; border: 2px solid rgba(9, 83, 234, 0.3);">
+          <iframe
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+            src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+        -->
+
       </div>
-      -->
+      <!-- /Readable-width wrapper -->
 
       <!-- Photo Gallery - tetris/masonry layout -->
       <!-- CHANGE: this folder (OTR-2026-images/) doesn't exist yet - create it next to this
            file, drop your photos in, then update these src paths to the real filenames. -->
-      <h3 style="margin-bottom: 1.5rem; color: var(--royal-blue);">Off The Record 2026 Photos</h3>
       <div class="tetris-gallery">
         <img src="OTR-2026-images/photo-1.jpg" alt="Off The Record 2026 photo">
         <img src="OTR-2026-images/photo-2.jpg" alt="Off The Record 2026 photo">
@@ -92,7 +101,7 @@
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2025 The Liquid Hotplates | UC Davis</p>
+    <p>&copy; 2026 The Liquid Hotplates | UC Davis</p>
   </footer>
 </body>
 </html>

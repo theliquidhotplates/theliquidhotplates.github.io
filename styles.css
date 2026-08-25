@@ -694,7 +694,7 @@ h3 {
    ==================================================================== */
 
 .alumni-section {
-  background: rgba(26, 26, 26, 0.35); /* CHANGE: #1A1A1A with some transparency - the alpha (0.75) is what lets the
+  background: rgba(26, 26, 26, 0.35); /* CHANGE: #1A1A1A with some transparency - the alpha (0.35) is what lets the
                                           aurora glow behind the page show through; raise it toward 1 for a more
                                           solid/opaque gray, lower it for more of the glow to bleed through */
 }
@@ -994,7 +994,7 @@ h3 {
    ==================================================================== */
 
 .tetris-gallery {
-  columns: 3 260px; /* CHANGE: "3" = target column count, "260px" = minimum width per column before it drops to fewer columns on narrower screens */
+  columns: 5 260px; /* CHANGE: "5" = target column count, "260px" = minimum width per column before it drops to fewer columns on narrower screens */
   column-gap: 1rem;
 }
 
