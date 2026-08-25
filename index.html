@@ -38,40 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(el);
   });
 
-  // Letter-reveal effect for the hero title and tagline: splits each one's
-  // text (already sitting in the HTML) into individual letters, each wrapped
-  // in its own <span>, then staggers when each one animates in via CSS.
-  // Splitting into ready-made elements up front like this (rather than
-  // inserting characters one at a time on a timer) is what makes the
-  // animation smooth - the browser animates a batch of already-in-place
-  // elements in one go, instead of repeatedly editing the page's text.
-  // CHANGE `letterDelayMs` to make letters cascade faster/slower, and
-  // `tagGapMs` to change the pause between the title finishing and the
-  // tagline starting.
-  const letterDelayMs = 30;
-  const letterAnimMs = 600; // must match the 0.6s in the letter-reveal CSS animation
-  const tagGapMs = 150;
-
-  const revealEls = document.querySelectorAll('.reveal-text');
-  let nextStartDelay = 0;
-
-  revealEls.forEach(el => {
-    const fullText = el.textContent;
-    el.textContent = '';
-    [...fullText].forEach((char, i) => {
-      const span = document.createElement('span');
-      span.className = 'letter';
-      span.textContent = char === ' ' ? '\u00A0' : char; // non-breaking space so gaps don't collapse
-      span.style.setProperty('--letter-delay', `${nextStartDelay + i * letterDelayMs}ms`);
-      el.appendChild(span);
-    });
-    // Queue up the next element (e.g. the tagline) to start right after
-    // this one's last letter finishes animating in.
-    nextStartDelay = nextStartDelay + (fullText.length - 1) * letterDelayMs + letterAnimMs + tagGapMs;
-  });
-
 });
 </script>
+<!-- Letter-reveal effect for any class="reveal-text" heading (the hero title/tagline
+     below) - shared across pages, see js/reveal-text.js for how it works. -->
+<script src="js/reveal-text.js"></script>
 
 <body>
   <!-- Navigation (no logo here - the hero title below already carries the branding on this page) -->

@@ -26,17 +26,18 @@
     </div>
   </nav>
 
-  <!-- Event Hero with Background Image -->
-  <section class="page-hero" style="background-image: url('../../images/events/alotta-2025-hero.jpg'); background-size: cover; background-position: center; min-height: 50vh; padding-top: 10rem;">
-    <div class="hero-overlay" style="background: rgba(0, 0, 0, 0.7);"></div>
-    <div style="position: relative; z-index: 2;">
-      <h1>Alottacappella 2025</h1>
-      <p>November 22nd & 23rd, 2025 • Khaira Lecture Hall, UC Davis</p>
+  <!-- Event Hero - full-screen, same treatment as the homepage hero.
+       Points at alotta-2025-images/hero.jpg - the same folder as the gallery below. -->
+  <section class="hero event-hero" style="background-image: url('alotta-2025-images/hero.jpg');">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="reveal-text">Alottacappella 2025</h1>
+      <p class="reveal-text">November 22nd & 23rd, 2025 • Khaira Lecture Hall, UC Davis</p>
     </div>
   </section>
 
   <!-- Event Details -->
-  <section class="section">
+  <section class="section" style="padding-top: 5rem;">
     <div class="container">
 
       <!-- Readable-width wrapper for text content - the outer .container is now
@@ -45,60 +46,57 @@
            while the gallery below (outside this wrapper) uses the full width. -->
       <div style="max-width: 900px; margin: 0 auto;">
 
-      <!-- Back Button -->
-      <a href="../../events.html" class="back-link">← Back to Timeline</a>
+        <!-- About Section -->
+        <h2>About Alottacappella</h2>
+        <p style="font-size: 1.1rem; line-height: 1.8; opacity: 0.9; margin-bottom: 3rem;">
+          Alottacappella is LHP's annual showcase hosted in the Fall in which we invite groups from around California to come and perform at our show!
+          This is a two day event in which different groups are present on different days.
+          <br><br>
+          This year the Saturday theme was Game Day, and the Sunday theme was Casino Night, and groups from all around were encouraged to dress according to theme.
+        </p>
 
-      <!-- About Section -->
-      <h2>About Alottacappella</h2>
-      <p style="font-size: 1.1rem; line-height: 1.8; opacity: 0.9; margin-bottom: 3rem;">
-        Alottacappella is LHP's annual showcase hosted in the Fall in which we invite groups from around California to come and perform at our show!
-        This is a two day event in which different groups are present on different days.
-        <br><br>
-        This year the Saturday theme was Game Day, and the Sunday theme was Casino Night, and groups from all around were encouraged to dress according to theme.
-      </p>
+        <!-- Setlist -->
+        <h3 style="margin-bottom: 1.5rem; color: var(--royal-blue);">Setlist</h3>
+        <div style="background: rgba(255, 255, 255, 0.03); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+          <ol style="list-style-position: inside; line-height: 2.2; opacity: 0.9; font-size: 1.05rem;">
+            <li>"Your Idol" - Kpop Demon Hunters</li>
+            <li>"Crazy" - Gnarls Barkley</li>
+            <li>"Attention" - Charlie Puth</li>
+            <li>"Take Me to Church" - Hozier</li>
+            <li>"Ashes and Blood" - Arcane</li>
+            <li>"Yebba Mashup" (Alumni Song) - Yebba</li>
+          </ol>
+        </div>
 
-      <!-- Setlist -->
-      <h3 style="margin-bottom: 1.5rem; color: var(--royal-blue);">Setlist</h3>
-      <div style="background: rgba(255, 255, 255, 0.03); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; border: 1px solid rgba(255, 255, 255, 0.1);">
-        <ol style="list-style-position: inside; line-height: 2.2; opacity: 0.9; font-size: 1.05rem;">
-          <li>"Your Idol" - Kpop Demon Hunters</li>
-          <li>"Crazy" - Gnarls Barkley</li>
-          <li>"Attention" - Charlie Puth</li>
-          <li>"Take Me to Church" - Hozier</li>
-          <li>"Ashes and Blood" - Arcane</li>
-          <li>"Yebba Mashup" (Alumni Song) - Yebba</li>
-        </ol>
-      </div>
-
-      <!-- Guest Groups -->
-      <h3 style="margin-bottom: 1.5rem; color: var(--royal-blue);">Guest Groups</h3>
-      <div style="background: rgba(255, 255, 255, 0.03); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; border: 1px solid rgba(255, 255, 255, 0.1);">
-        <ol style="list-style-position: inside; line-height: 2.2; opacity: 0.9; font-size: 1.05rem;">
-          <li>The Cleftomaniacs - UC Davis</li>
-          <li>Jhankaar - UC Davis</li>
-          <li>Ph Scale - Diablo Valley College</li>
-          <li>Acquire - UC Santa Cruz</li>
-          <li>The Spokes - UC Davis</li>
-          <li>The Lounge Lizards - UC Davis</li>
-          <li>Drawn to Scale - UC Berkeley</li>
-          <li>DeCadence - UC Berkeley</li>
-          <li>Cloud 9 - UC Santa Cruz</li>
-        </ol>
-      </div>
-      
-      <!-- YouTube Video Embed -> sorry not for this one lol-->
-      <!--
-      <h3 style="margin-bottom: 1.5rem; color: var(--royal-blue);">Watch the Performance</h3>
-      <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 15px; margin-bottom: 3rem; border: 2px solid rgba(9, 83, 234, 0.3);">
-        <iframe
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-          src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-      -->
+        <!-- Guest Groups -->
+        <h3 style="margin-bottom: 1.5rem; color: var(--royal-blue);">Guest Groups</h3>
+        <div style="background: rgba(255, 255, 255, 0.03); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+          <ol style="list-style-position: inside; line-height: 2.2; opacity: 0.9; font-size: 1.05rem;">
+            <li>The Cleftomaniacs - UC Davis</li>
+            <li>Jhankaar - UC Davis</li>
+            <li>Ph Scale - Diablo Valley College</li>
+            <li>Acquire - UC Santa Cruz</li>
+            <li>The Spokes - UC Davis</li>
+            <li>The Lounge Lizards - UC Davis</li>
+            <li>Drawn to Scale - UC Berkeley</li>
+            <li>DeCadence - UC Berkeley</li>
+            <li>Cloud 9 - UC Santa Cruz</li>
+          </ol>
+        </div>
+        
+        <!-- YouTube Video Embed -> sorry not for this one lol-->
+        <!--
+        <h3 style="margin-bottom: 1.5rem; color: var(--royal-blue);">Watch the Performance</h3>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 15px; margin-bottom: 3rem; border: 2px solid rgba(9, 83, 234, 0.3);">
+          <iframe
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+            src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+        -->
 
       </div>
       <!-- /Readable-width wrapper -->
@@ -120,11 +118,20 @@
       </div>
 
     </div>
+
+    <!-- Back Button - now at the bottom of the page, after everything else -->
+    <div class="container" style="padding-top: 3rem; text-align: center;">
+      <a href="../../events.html" class="back-link">← Back to Timeline</a>
+    </div>
+
   </section>
 
   <!-- Footer -->
   <footer>
     <p>&copy; 2026 The Liquid Hotplates | UC Davis</p>
   </footer>
+
+  <!-- Letter-reveal effect for the hero title above - see js/reveal-text.js -->
+  <script src="../../js/reveal-text.js"></script>
 </body>
 </html>

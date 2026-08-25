@@ -188,7 +188,7 @@ h3 {
 
 
 /* ====================================================================
-   HERO SECTIONS (Homepage & Members Page)
+   HERO SECTIONS (Homepage, Events subpages, Members/Contact page-heroes)
    ==================================================================== */
 
 .hero {
@@ -210,6 +210,17 @@ h3 {
   background-position: center; /* CHANGE: center top, center bottom, 50% 30%, etc. */
   background-repeat: no-repeat;
   min-height: 100vh; /* CHANGE: full-screen hero image */
+}
+
+/* Event subpage hero - same full-screen treatment as the homepage hero above,
+   just with a per-event background image set inline on the <section> itself
+   (style="background-image: url('...')") since every event's photo is different.
+   Combine with the base .hero class, e.g. class="hero event-hero". */
+.event-hero {
+  min-height: 100vh; /* CHANGE: full-screen hero, matching the homepage */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* Dark overlay so text is readable over images */
@@ -234,16 +245,17 @@ h3 {
   font-size: 4.5rem;
 }
 
-/* Letter-by-letter reveal animation for the hero title. Unlike a typewriter
-   (which inserts one character into the page every ~90ms - can look a little
-   janky since the browser has to reflow the layout on every single insert),
-   this renders the whole title up front as individual letters, each starting
-   invisible, then lets CSS animate them all in with a staggered delay. That's
-   a single smooth animation instead of repeated DOM edits, so it reads much
-   smoother. The actual letter-splitting happens in JS (see <script> in
-   index.html); this CSS just defines what each letter's "fly in" animation
-   looks like. Reusable: add class="reveal-text" to any heading, and add its
-   selector to the querySelectorAll list in the script. */
+/* Letter-by-letter reveal animation for any heading with class="reveal-text".
+   Unlike a typewriter (which inserts one character into the page every
+   ~90ms - can look a little janky since the browser has to reflow the layout
+   on every single insert), this renders the whole title up front as
+   individual letters, each starting invisible, then lets CSS animate them
+   all in with a staggered delay. That's a single smooth animation instead of
+   repeated DOM edits, so it reads much smoother. The actual letter-splitting
+   happens in JS - see js/reveal-text.js, included near the bottom of every
+   page that uses this (adjust the script src path for how deep the page is).
+   Used on: the homepage hero, the Events page title, and every event
+   subpage's hero title/date line. */
 .reveal-text .letter {
   display: inline-block;
   opacity: 0;
@@ -265,8 +277,9 @@ h3 {
   line-height: 1.7;
 }
 
-/* Same letter-reveal treatment as the title, applied to the tagline
-   underneath it - just delayed so it starts right as the title finishes. */
+/* Same letter-reveal treatment as the title, applied to the tagline/date
+   line underneath it - just delayed so it starts right as the title finishes
+   (the delay math for that is handled automatically in js/reveal-text.js). */
 .hero p.reveal-text .letter {
   animation-name: letter-reveal-tagline;
 }
@@ -285,21 +298,13 @@ h3 {
   margin-top: 2rem;
 }
 
-/* Page hero (for members, events, etc.) */
+/* Page hero (for Members/Contact - plain, no background image) */
 .page-hero {
   padding: 10rem 5% 5rem;
   text-align: center;
-  background:var(--black); /*should remove gradient*/
+  background: var(--black);
   position: relative;
   overflow: hidden;
-}
-
-.page-hero h1 {
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, var(--off-white), var(--royal-blue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .page-hero p {
@@ -387,9 +392,8 @@ h3 {
   box-shadow: 0 10px 25px rgba(9, 83, 234, 0.4);
 }
 
-/* Small, subtle "back" link for event subpages - replaces the old full-sized
-   .btn-small button that used to sit prominently at the top of each event
-   page. This is quieter, like a breadcrumb. */
+/* Small, subtle "back" link for event subpages - sits right under the hero
+   (see the <div> wrapping it in each event page's HTML), not a loud button. */
 .back-link {
   display: inline-block;
   color: rgba(255, 255, 255, 0.5);
@@ -814,10 +818,6 @@ h3 {
   text-align: left;
   font-size: 3rem;
   margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, var(--off-white), var(--royal-blue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .events-page-header p {
@@ -939,18 +939,6 @@ h3 {
   flex-shrink: 0;
 }
 
-/*====================================================================
-========================================================================
-===========================================================================
-==========================================================================
-                  EVENTS PAGE ENDD    
-                  ===============================================
-                  ==============================================
-                  ========================================================
-                  ==================================================== */
-
-
-
 /* ====================================================================
    EVENT AWARDS - for event subpages (e.g. ICCA results)
    Same visual language as the orange .member-award badges on the Members
@@ -994,7 +982,7 @@ h3 {
    ==================================================================== */
 
 .tetris-gallery {
-  columns: 5 260px; /* CHANGE: "5" = target column count, "260px" = minimum width per column before it drops to fewer columns on narrower screens */
+  columns: 3 320px; /* CHANGE: "3" = target column count, "320px" = minimum width per column before it drops to fewer columns on narrower screens */
   column-gap: 1rem;
 }
 
@@ -1021,6 +1009,12 @@ h3 {
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
+  transition: box-shadow 0.3s ease; /* the glow below animates on this wrapper - the inner img can't
+                                        show its own shadow since this wrapper clips it via overflow:hidden */
+}
+
+.tetris-gallery-item:hover {
+  box-shadow: 0 10px 30px rgba(9, 83, 234, 0.4); /* matches the plain .tetris-gallery img hover glow, for consistency between the two galleries */
 }
 
 .tetris-gallery-item img {
