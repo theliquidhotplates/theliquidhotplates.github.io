@@ -694,7 +694,9 @@ h3 {
    ==================================================================== */
 
 .alumni-section {
-  background: #1A1A1A; /* CHANGE: a navy-tinted dark gray, matching the royal-blue palette instead of a neutral gray */
+  background: rgba(26, 26, 26, 0.35); /* CHANGE: #1A1A1A with some transparency - the alpha (0.75) is what lets the
+                                          aurora glow behind the page show through; raise it toward 1 for a more
+                                          solid/opaque gray, lower it for more of the glow to bleed through */
 }
 
 /* Closes the gap between this section's background and the footer right

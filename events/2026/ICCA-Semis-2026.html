@@ -38,7 +38,13 @@
 
   <!-- Event Details -->
   <section class="section">
-    <div class="container" style="max-width: 900px;">
+    <div class="container">
+
+      <!-- Readable-width wrapper for text content - the outer .container is now
+           the site-standard 1400px (matching the homepage), but 1400px-wide
+           paragraphs are uncomfortable to read, so text stays narrower here
+           while the gallery below (outside this wrapper) uses the full width. -->
+      <div style="max-width: 900px;">
 
       <!-- Back Button -->
       <a href="../../events.html" class="back-link">← Back to Timeline</a>
@@ -77,6 +83,9 @@
           allowfullscreen>
         </iframe>
       </div>
+
+      </div>
+      <!-- /Readable-width wrapper -->
 
       <!-- Photo Gallery - tetris/masonry layout -->
       <!-- CHANGE: this folder (ICCA-Semis-2026-images/) doesn't exist yet - create it next to this
