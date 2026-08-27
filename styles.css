@@ -243,6 +243,7 @@ h3 {
 .hero h1 {
   margin-bottom: 1.5rem;
   font-size: 4.5rem;
+  white-space: nowrap; /* never wrap onto a 2nd line - js/reveal-text.js shrinks the font instead if a title is too long to fit */
 }
 
 /* Letter-by-letter reveal animation for any heading with class="reveal-text".
@@ -275,6 +276,7 @@ h3 {
   font-size: 1.25rem;
   margin-bottom: 2.5rem;
   line-height: 1.7;
+  white-space: nowrap; /* same reasoning as .hero h1 above */
 }
 
 /* Same letter-reveal treatment as the title, applied to the tagline/date
@@ -446,17 +448,25 @@ h3 {
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  -webkit-transform: translateZ(0); /* nudges iOS Safari into a proper compositing layer for this
+                                        element - without it, backface-visibility can fail to hide
+                                        the back face on iOS specifically, showing both faces at once */
+  transform: translateZ(0);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Front of card — photo fills the entire card, text overlays the bottom */
+/* Front of card — photo fills the entire card, text overlays the bottom.
+   Note: NOT using overflow:hidden here on purpose - combining overflow:hidden
+   with backface-visibility:hidden on the same element is a known iOS Safari
+   bug that breaks the hiding, showing both card faces at once (mirrored) on
+   the flip. Corner-clipping is handled per-layer instead - see .member-photo
+   and the ::after gradient below, which each get their own border-radius. */
 .flip-card-front {
   background: var(--light-gray); /* fallback color if a photo is missing/slow to load */
   border: 1px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden; /* keeps the photo clipped to the card's rounded corners */
   padding: 1.5rem 1.25rem 1.25rem;
   align-items: center;
   justify-content: flex-end; /* pushes the text block to the bottom */
@@ -470,6 +480,8 @@ h3 {
   left: 0;
   width: 100%;
   height: 42%; /* CHANGE: how far up the gradient reaches (roughly bottom 1/5–2/5 of the card) */
+  border-radius: 0 0 20px 20px; /* rounds just the bottom corners, matching the card's own radius,
+                                    now that this can't rely on the parent's overflow:hidden anymore */
   background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.55) 35%, rgba(0, 0, 0, 0) 100%);
   pointer-events: none; /* lets clicks/hover pass through to the card underneath */
   z-index: 1;
@@ -481,7 +493,9 @@ h3 {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(9, 83, 234, 0.3);
   color: var(--off-white);
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) translateZ(0); /* combined with translateZ(0) here, not left as a separate
+                                                declaration, since a later transform on the same element
+                                                fully replaces an earlier one rather than combining with it */
   padding: 2rem 1.5rem;
   justify-content: center;
   align-items: center;
@@ -495,7 +509,9 @@ h3 {
   left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 0; /* the card itself handles rounded corners via overflow:hidden */
+  border-radius: 20px; /* clips itself to match the card's rounded corners - see the note on
+                           .flip-card-front above for why this can't rely on the parent anymore */
+  overflow: hidden;
   margin: 0;
   background: var(--light-gray);
   display: flex;
@@ -948,6 +964,7 @@ h3 {
 .event-awards {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.6rem;
   margin-bottom: 2.5rem;
 }

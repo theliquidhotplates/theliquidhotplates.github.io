@@ -77,15 +77,37 @@ document.addEventListener('DOMContentLoaded', () => {
         el.appendChild(document.createElement('br'));
         return;
       }
-      const text = node.textContent;
-      [...text].forEach(char => {
-        const span = document.createElement('span');
-        span.className = 'letter';
-        span.textContent = char === ' ' ? '\u00A0' : char; // non-breaking space so gaps don't collapse
-        span.style.setProperty('--letter-delay', `${nextStartDelay + letterIndex * letterDelayMs}ms`);
-        el.appendChild(span);
-        letterIndex++;
-        totalLetters++;
+
+      // Split into words first, and wrap each word's letters together in
+      // their own inline-block, nowrap span. This keeps every word visually
+      // intact as one unbreakable unit - important because once individual
+      // letters become separate inline-block elements (needed so each one
+      // can animate independently), the browser loses any sense of "this is
+      // one word" and can otherwise insert a line break between ANY two
+      // letters, not just at real spaces - which is exactly what was causing
+      // titles to wrap mid-word (e.g. "Record" splitting into "Rec"/"ord").
+      // A real space character (not part of any word-span) sits between the
+      // word-spans below, so the browser can still wrap normally there.
+      const words = node.textContent.split(' ');
+      words.forEach((word, wordIdx) => {
+        if (word.length > 0) {
+          const wordSpan = document.createElement('span');
+          wordSpan.style.display = 'inline-block';
+          wordSpan.style.whiteSpace = 'nowrap';
+          [...word].forEach(char => {
+            const letterSpan = document.createElement('span');
+            letterSpan.className = 'letter';
+            letterSpan.textContent = char;
+            letterSpan.style.setProperty('--letter-delay', `${nextStartDelay + letterIndex * letterDelayMs}ms`);
+            wordSpan.appendChild(letterSpan);
+            letterIndex++;
+            totalLetters++;
+          });
+          el.appendChild(wordSpan);
+        }
+        if (wordIdx < words.length - 1) {
+          el.appendChild(document.createTextNode(' ')); // a normal, real space - a genuine break opportunity
+        }
       });
     });
 
