@@ -1089,110 +1089,6 @@ h3 {
 
 
 /* ====================================================================
-   GLOWING GRADIENT BADGE (Who We Are section)
-   Adapted from a Uiverse.io snippet by Cksunandh. Original used vmin units
-   sized for a big standalone hero display; resized here with fixed px values
-   to work as a smaller side accent instead. CHANGE the width/height/font-size
-   below to make the badge bigger or smaller.
-   ==================================================================== */
-
-.who-we-are-layout {
-  display: flex;
-  align-items: center;
-  gap: 3rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.who-we-are-content {
-  flex: 1;
-  text-align: left; /* overrides the centered default on h2/p for this section only */
-}
-
-.who-we-are-content h2 {
-  text-align: left;
-}
-
-.glow-badge {
-  position: relative;
-  flex-shrink: 0; /* keeps the badge from getting squeezed by the text next to it */
-  width: 140px; /* CHANGE: badge size */
-  height: 140px;
-  background: linear-gradient(135deg, #0a1230 10%, #020512 60%); /* CHANGE: a navy-blue-tinted dark gradient instead of neutral gray/black */
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-  animation: gradient-shift 5s ease-in-out infinite;
-  background-size: 200% 200%;
-}
-
-.glow-badge .badge-mark {
-  width: 72px; /* CHANGE: logo size within the badge */
-  height: 72px;
-  object-fit: contain;
-}
-
-.glow-badge::before,
-.glow-badge::after {
-  --size: 5px;
-  content: '';
-  position: absolute;
-  top: calc(var(--size) / -2);
-  left: calc(var(--size) / -2);
-  width: calc(100% + var(--size));
-  height: calc(100% + var(--size));
-  border-radius: 20px;
-  /* CHANGE: four shades of --royal-blue, light to dark, instead of a rainbow -
-     swap any of these for other blue tones if you want a different mix */
-  background: radial-gradient(circle at 0 0, #7bb0ff, transparent),
-    radial-gradient(circle at 100% 0, var(--royal-blue), transparent),
-    radial-gradient(circle at 0 100%, #3d7bf5, transparent),
-    radial-gradient(circle at 100% 100%, #052d7a, transparent);
-}
-
-.glow-badge::after {
-  --size: 2px;
-  z-index: -1;
-}
-
-.glow-badge::before {
-  --size: 10px;
-  z-index: -2;
-  filter: blur(14px);
-  animation: badge-blur 3s ease-in-out alternate infinite;
-}
-
-@keyframes badge-blur {
-  to {
-    filter: blur(20px);
-    transform: scale(1.05);
-  }
-}
-
-@keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@media (max-width: 768px) {
-  .who-we-are-layout {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .who-we-are-content {
-    text-align: center;
-  }
-
-  .who-we-are-content h2 {
-    text-align: center;
-  }
-}
-
-/* ====================================================================
    SCROLL ANIMATIONS
    ==================================================================== */
 
@@ -1213,7 +1109,7 @@ h3 {
    ==================================================================== */
 
 footer {
-  background-color: #151517;
+  background-color: var(--light-gray);
   text-align: center;
   padding: 2rem;
   margin-top: 4rem;
