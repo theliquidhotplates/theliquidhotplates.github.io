@@ -300,19 +300,6 @@ h3 {
   margin-top: 2rem;
 }
 
-/* Page hero (for Members/Contact - plain, no background image) */
-.page-hero {
-  padding: 10rem 5% 5rem;
-  text-align: center;
-  background: var(--black);
-  position: relative;
-  overflow: hidden;
-}
-
-.page-hero p {
-  font-size: 1.3rem;
-  opacity: 0.8;
-}
 
 
 /* ====================================================================
@@ -791,6 +778,32 @@ h3 {
   opacity: 0.22;
 }
 
+/* Third color blob (orange) - a real nested element, since ::before/::after
+   are already both used by the two blue blobs above and an element can only
+   have two pseudo-elements. Add <div class="aurora-blob-orange"></div> inside
+   <div class="page-aurora-bg"> on any page that wants this third accent color
+   (currently just the Contact page). Matches the site's existing orange
+   accent (used on member titles/award badges) rather than introducing a new
+   color to the palette. */
+.aurora-blob-orange {
+  position: absolute;
+  width: 40vw; /* CHANGE: bigger/smaller = stronger/more subtle glow, same idea as the two blue blobs */
+  height: 40vw;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.22;
+  background: #FF6B35;
+  top: 25%;
+  left: 35%;
+  animation: aurora-drift-c 26s ease-in-out infinite alternate;
+}
+
+.page-aurora-bg.small .aurora-blob-orange {
+  width: 26vw;
+  height: 26vw;
+  opacity: 0.18;
+}
+
 /* Grain/noise texture layer - a tiny tiled fractal-noise SVG, laid on top of
    the color blobs with mix-blend-mode so it reads as texture/grain rather
    than a separate visible layer, breaking up the smooth gradient banding.
@@ -812,6 +825,10 @@ h3 {
 
 @keyframes aurora-drift-b {
   to { transform: translate(-8%, -8%) scale(1.2); }
+}
+
+@keyframes aurora-drift-c {
+  to { transform: translate(-10%, 12%) scale(1.12); }
 }
 
 .events-timeline {
@@ -999,7 +1016,7 @@ h3 {
    ==================================================================== */
 
 .tetris-gallery {
-  columns: 3 320px; /* CHANGE: "3" = target column count, "320px" = minimum width per column before it drops to fewer columns on narrower screens */
+  columns: 2 420px; /* CHANGE: "2" = target column count, "420px" = minimum width per column before it drops to fewer columns on narrower screens */
   column-gap: 1rem;
 }
 
@@ -1053,7 +1070,7 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
+  font-size: 1rem; /* CHANGE: was 1.6rem - now sized like normal body text instead of a big display number */
   font-weight: 700;
   color: var(--off-white);
   opacity: 0;
@@ -1196,7 +1213,7 @@ h3 {
    ==================================================================== */
 
 footer {
-  background-color: var(--light-gray);
+  background-color: #151517;
   text-align: center;
   padding: 2rem;
   margin-top: 4rem;
@@ -1277,5 +1294,17 @@ footer p {
   
   .flip-card {
     height: 450px;
+  }
+
+  /* Hero/event photos are often wide group shots - background-size:cover
+     (the desktop default) crops the sides off to fill a narrow, tall phone
+     screen, which can cut people out of the frame entirely. On mobile, show
+     the whole photo instead (uncropped), even if that means it displays
+     smaller with some empty space above/below - everyone in the shot stays
+     visible, which matters more here than filling every pixel. */
+  .hero-home,
+  .event-hero {
+    background-size: contain;
+    background-color: var(--black); /* fills the empty space left/right or top/bottom around the now-uncropped photo */
   }
 }
