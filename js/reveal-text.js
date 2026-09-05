@@ -51,13 +51,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // root, rather than just narrowing which elements this applies to.
   document.fonts.ready.then(() => {
     revealEls.forEach(el => {
-      // Important: measure against the outer .hero section, not el's immediate
-      // parent (.hero-content). .hero-content has its own max-width and, being
-      // a flex item, doesn't actually shrink below that even on a narrower
-      // screen - so it's not a reliable stand-in for the real available width.
-      // .hero itself is a normal block-level section, genuinely constrained by
-      // the actual viewport, which is what we need to measure against.
-      const boundary = el.closest('.hero') || el.parentElement;
+      // Only hero titles get the shrink-to-fit treatment. Plain page headings
+      // like "Current Members," "Alumni," or "Contact Us!" are short enough
+      // to always fit fine at full size, and applying this to them caused a
+      // confusing bug: since this only measures once at page load and never
+      // re-measures on resize, whatever browser window width happened to be
+      // active the last time the page was reloaded got permanently baked in
+      // - so the same heading could show up small or large depending on
+      // nothing more than what width you happened to reload at, with no way
+      // to "fix" it just by resizing afterward. Skipping non-hero headings
+      // entirely removes that whole class of bug, rather than tuning it.
+      const boundary = el.closest('.hero');
       if (!boundary) return;
       const boundaryStyle = getComputedStyle(boundary);
       const availableWidth = boundary.clientWidth - parseFloat(boundaryStyle.paddingLeft) - parseFloat(boundaryStyle.paddingRight);
