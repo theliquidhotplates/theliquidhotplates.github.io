@@ -34,29 +34,42 @@ document.addEventListener('DOMContentLoaded', () => {
   // Shrink-to-fit: a long title can still be too wide for the screen at its
   // default font-size. Instead of guessing one fixed font-size that happens
   // to fit every title on every page, this measures each one and shrinks it
-  // step by step until it actually fits. Runs before the letters get split
-  // into spans below. (Works fine even on titles with a manual <br> in them -
-  // el.scrollWidth then reflects the widest of the two lines, which is
-  // exactly what needs to fit.)
-  revealEls.forEach(el => {
-    // Important: measure against the outer .hero section, not el's immediate
-    // parent (.hero-content). .hero-content has its own max-width and, being
-    // a flex item, doesn't actually shrink below that even on a narrower
-    // screen - so it's not a reliable stand-in for the real available width.
-    // .hero itself is a normal block-level section, genuinely constrained by
-    // the actual viewport, which is what we need to measure against.
-    const boundary = el.closest('.hero') || el.parentElement;
-    if (!boundary) return;
-    const boundaryStyle = getComputedStyle(boundary);
-    const availableWidth = boundary.clientWidth - parseFloat(boundaryStyle.paddingLeft) - parseFloat(boundaryStyle.paddingRight);
-    let fontSize = parseFloat(getComputedStyle(el).fontSize);
-    const minFontSize = 16; // px - CHANGE: the smallest this is allowed to shrink to
-    let guard = 0; // safety net so a layout quirk can't turn this into an infinite loop
-    while (el.scrollWidth > availableWidth && fontSize > minFontSize && guard < 60) {
-      fontSize -= 2;
-      el.style.fontSize = fontSize + 'px';
-      guard++;
-    }
+  // step by step until it actually fits. (Works fine even on titles with a
+  // manual <br> in them - el.scrollWidth then reflects the widest of the two
+  // lines, which is exactly what needs to fit.)
+  //
+  // IMPORTANT: this waits for document.fonts.ready before measuring anything.
+  // Without that wait, this used to run the instant the page's HTML finished
+  // loading - but the site's custom font (DM Sans) loads separately and
+  // asynchronously, so the browser is often still showing a temporary
+  // fallback font at that exact moment. Fallback fonts are frequently WIDER
+  // per letter than DM Sans, so even short headings like "Current Members"
+  // or "Alumni" could get measured as "too wide" and shrunk down - and
+  // because the shrink below sets a hard fixed font-size, that shrink never
+  // reverted even after the real font finished loading and it would have
+  // fit fine all along. Waiting for the real font first fixes that at the
+  // root, rather than just narrowing which elements this applies to.
+  document.fonts.ready.then(() => {
+    revealEls.forEach(el => {
+      // Important: measure against the outer .hero section, not el's immediate
+      // parent (.hero-content). .hero-content has its own max-width and, being
+      // a flex item, doesn't actually shrink below that even on a narrower
+      // screen - so it's not a reliable stand-in for the real available width.
+      // .hero itself is a normal block-level section, genuinely constrained by
+      // the actual viewport, which is what we need to measure against.
+      const boundary = el.closest('.hero') || el.parentElement;
+      if (!boundary) return;
+      const boundaryStyle = getComputedStyle(boundary);
+      const availableWidth = boundary.clientWidth - parseFloat(boundaryStyle.paddingLeft) - parseFloat(boundaryStyle.paddingRight);
+      let fontSize = parseFloat(getComputedStyle(el).fontSize);
+      const minFontSize = 16; // px - CHANGE: the smallest this is allowed to shrink to
+      let guard = 0; // safety net so a layout quirk can't turn this into an infinite loop
+      while (el.scrollWidth > availableWidth && fontSize > minFontSize && guard < 60) {
+        fontSize -= 2;
+        el.style.fontSize = fontSize + 'px';
+        guard++;
+      }
+    });
   });
 
   let nextStartDelay = 0;

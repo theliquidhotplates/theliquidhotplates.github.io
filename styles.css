@@ -1197,10 +1197,22 @@ footer p {
      screen, which can cut people out of the frame entirely. On mobile, show
      the whole photo instead (uncropped), even if that means it displays
      smaller with some empty space above/below - everyone in the shot stays
-     visible, which matters more here than filling every pixel. */
+     visible, which matters more here than filling every pixel.
+     Anchoring to the top (instead of the default center) keeps the photo
+     acting like a real header/banner sitting at the top of the page, with
+     the title text pushed toward the bottom of the box instead of sitting
+     centered on top of the photo. */
   .hero-home,
   .event-hero {
+    min-height: 70vh; /* CHANGE: shorter than the desktop 100vh, so this isn't a mostly-empty full screen once the photo is uncropped */
     background-size: contain;
+    background-position: top center;
+    background-origin: content-box; /* makes "top" mean "top of the content area" (i.e. below this box's own
+                                         top padding) rather than the literal top edge of the box - without this,
+                                         the image's top portion renders hidden behind the fixed nav bar, since a
+                                         background-image normally ignores padding and paints from the very top */
     background-color: var(--black); /* fills the empty space left/right or top/bottom around the now-uncropped photo */
+    align-items: flex-end; /* pushes the title/date text toward the bottom of the box, away from the top-anchored photo */
+    padding-bottom: 3rem;
   }
 }
