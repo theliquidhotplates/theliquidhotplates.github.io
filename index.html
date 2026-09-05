@@ -11,11 +11,7 @@
 
 <!-- ANIMATIONSSSSSSSSSSSSSSS -->
 <script>
-// Everything in here waits for the page's HTML to finish loading before it
-// runs. (Note: this fixes a pre-existing bug - this script used to sit before
-// <body> and run immediately, before any of the elements below existed yet,
-// so document.querySelectorAll found nothing and the fade-in animations never
-// actually fired. Wrapping everything in DOMContentLoaded fixes that.)
+// Everything in here waits for the page's HTML to finish loading before it runs
 document.addEventListener('DOMContentLoaded', () => {
 
   // Scroll fade-in animations
@@ -32,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, observerOptions);
 
-  // Add fade-in class to elements you want to animate
+  //fase in class animations
   document.querySelectorAll('.section, .info-flip-card, h2').forEach(el => {
     el.classList.add('fade-in');
     observer.observe(el);
@@ -41,11 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 <!-- Letter-reveal effect for any class="reveal-text" heading (the hero title/tagline
-     below) - shared across pages, see js/reveal-text.js for how it works. -->
+     below) - shared across pages-->
 <script src="js/reveal-text.js"></script>
 
 <body>
-  <!-- Navigation (no logo here - the hero title below already carries the branding on this page) -->
+  <!-- Navigation -->
   <nav class="navbar">
     <div class="nav-container">
       <div class="nav-pill">
@@ -81,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
   </section>
 
-  <!-- What We Do - FLIP CARDS VERSION -->
+  <!-- What We Do-->
   <section class="section" style="background: #0a0a0a; padding: 5rem 5%;">
     <div class="container">
       <h2 style="margin-bottom: 3rem;">What We Do</h2>
@@ -125,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
   </section>
 
-  <!-- LHP Through The Years - tetris/masonry gallery, hover a photo to see its year -->
+  <!-- LHP Through The Years + hover feature-->
   <section class="section">
     <div class="container">
       <h2 style="margin-bottom: 3rem;">LHP Through The Years</h2>
