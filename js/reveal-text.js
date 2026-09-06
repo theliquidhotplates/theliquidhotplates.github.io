@@ -1,6 +1,6 @@
 // Splits any .reveal-text element into per-letter spans that animate in with
-// a staggered delay (see .reveal-text .letter in styles.css). Sizing is
-// handled entirely by CSS clamp() now, not JS - see .hero h1 / .hero p.
+// a staggered delay
+// Sizing is handled entirely by CSS clamp() now, not JS - (.hero h1 / .hero p.)
 document.addEventListener('DOMContentLoaded', () => {
   const letterDelayMs = 30;
   const letterAnimMs = 600; // must match the 0.6s in the letter-reveal CSS animation
