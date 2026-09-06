@@ -238,12 +238,15 @@ h3 {
   position: relative;
   z-index: 2; /* Keeps text above overlay */
   max-width: 900px;
+  min-width: 0; /* .hero-content is a flex child of .hero - without this, a flex child won't shrink below
+                   its own content's natural width, which was letting long date/location lines (like
+                   "May 16th, 2026 - Khaira Lecture Hall, UC Davis") overflow off the edge on narrow phone
+                   screens instead of wrapping onto a second line like they should. */
 }
 
 .hero h1 {
   margin-bottom: 1.5rem;
-  font-size: 4.5rem;
-  white-space: nowrap; /* never wrap onto a 2nd line - js/reveal-text.js shrinks the font instead if a title is too long to fit */
+  font-size: clamp(1.9rem, 8vw, 4.5rem); /* scales continuously with screen width - no JS needed */
 }
 
 /* Letter-by-letter reveal animation for any heading with class="reveal-text".
@@ -273,10 +276,9 @@ h3 {
 }
 
 .hero p {
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 3.5vw, 1.25rem);
   margin-bottom: 2.5rem;
   line-height: 1.7;
-  white-space: nowrap; /* same reasoning as .hero h1 above */
 }
 
 /* Same letter-reveal treatment as the title, applied to the tagline/date
@@ -1178,7 +1180,7 @@ footer p {
   h1 {
     font-size: 2.5rem;
   }
-  
+
   h2 {
     font-size: 2rem;
   }

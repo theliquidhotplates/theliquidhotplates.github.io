@@ -1,92 +1,22 @@
-// Letter-reveal effect: splits any element with class="reveal-text" into
-// individual letters (each wrapped in its own <span>), then lets CSS animate
-// them in with a staggered delay (see .reveal-text .letter in styles.css).
-// Splitting into ready-made elements up front like this - rather than
-// inserting characters one at a time on a timer - is what makes it look
-// smooth: the browser animates a batch of already-in-place elements in one
-// go, instead of repeatedly editing the page's text.
-//
-// Used on: the homepage hero title/tagline, the Events page title, and every
-// event subpage's hero title/date line. Just add class="reveal-text" to any
-// heading and include this script (adjusting the src path for how deep the
-// page is) to reuse it anywhere else too.
-//
-// Want to control exactly where a long title breaks onto a 2nd line (e.g.
-// "ICCA West Quarterfinals 2026" breaking as "ICCA West" / "Quarterfinals
-// 2026" instead of wherever the browser happens to wrap it, which can end up
-// splitting a number in half)? Just put a literal <br> in the HTML where you
-// want the break, e.g.:
-//   <h1 class="reveal-text">ICCA West<br>Quarterfinals 2026</h1>
-// This script preserves that <br> as a real line break instead of discarding
-// it, and the letters keep animating in as one continuous sequence across it.
-//
-// CHANGE `letterDelayMs` to make letters cascade faster/slower, and
-// `tagGapMs` to change the pause between one reveal-text element finishing
-// and the next one starting (only matters if a page has more than one, like
-// a hero title + its date/tagline line).
+// Splits any .reveal-text element into per-letter spans that animate in with
+// a staggered delay (see .reveal-text .letter in styles.css). Sizing is
+// handled entirely by CSS clamp() now, not JS - see .hero h1 / .hero p.
 document.addEventListener('DOMContentLoaded', () => {
   const letterDelayMs = 30;
   const letterAnimMs = 600; // must match the 0.6s in the letter-reveal CSS animation
   const tagGapMs = 150;
 
   const revealEls = document.querySelectorAll('.reveal-text');
-
-  // Shrink-to-fit: a long title can still be too wide for the screen at its
-  // default font-size. Instead of guessing one fixed font-size that happens
-  // to fit every title on every page, this measures each one and shrinks it
-  // step by step until it actually fits. (Works fine even on titles with a
-  // manual <br> in them - el.scrollWidth then reflects the widest of the two
-  // lines, which is exactly what needs to fit.)
-  //
-  // IMPORTANT: this waits for document.fonts.ready before measuring anything.
-  // Without that wait, this used to run the instant the page's HTML finished
-  // loading - but the site's custom font (DM Sans) loads separately and
-  // asynchronously, so the browser is often still showing a temporary
-  // fallback font at that exact moment. Fallback fonts are frequently WIDER
-  // per letter than DM Sans, so even short headings like "Current Members"
-  // or "Alumni" could get measured as "too wide" and shrunk down - and
-  // because the shrink below sets a hard fixed font-size, that shrink never
-  // reverted even after the real font finished loading and it would have
-  // fit fine all along. Waiting for the real font first fixes that at the
-  // root, rather than just narrowing which elements this applies to.
-  document.fonts.ready.then(() => {
-    revealEls.forEach(el => {
-      // Only hero titles get the shrink-to-fit treatment. Plain page headings
-      // like "Current Members," "Alumni," or "Contact Us!" are short enough
-      // to always fit fine at full size, and applying this to them caused a
-      // confusing bug: since this only measures once at page load and never
-      // re-measures on resize, whatever browser window width happened to be
-      // active the last time the page was reloaded got permanently baked in
-      // - so the same heading could show up small or large depending on
-      // nothing more than what width you happened to reload at, with no way
-      // to "fix" it just by resizing afterward. Skipping non-hero headings
-      // entirely removes that whole class of bug, rather than tuning it.
-      const boundary = el.closest('.hero');
-      if (!boundary) return;
-      const boundaryStyle = getComputedStyle(boundary);
-      const availableWidth = boundary.clientWidth - parseFloat(boundaryStyle.paddingLeft) - parseFloat(boundaryStyle.paddingRight);
-      let fontSize = parseFloat(getComputedStyle(el).fontSize);
-      const minFontSize = 16; // px - CHANGE: the smallest this is allowed to shrink to
-      let guard = 0; // safety net so a layout quirk can't turn this into an infinite loop
-      while (el.scrollWidth > availableWidth && fontSize > minFontSize && guard < 60) {
-        fontSize -= 2;
-        el.style.fontSize = fontSize + 'px';
-        guard++;
-      }
-    });
-  });
-
   let nextStartDelay = 0;
 
   revealEls.forEach(el => {
-    // Walk the element's existing child nodes instead of flattening to
-    // textContent, so any manual <br> already sitting in the HTML (see the
-    // comment at the top of this file) survives instead of being silently
-    // discarded when the text gets split into letters.
+    // Walk child nodes (not textContent) so a manual <br> in the HTML - used
+    // to control exactly where a long title breaks, e.g.
+    // "ICCA West<br>Quarterfinals 2026" - survives as a real line break.
     const originalNodes = Array.from(el.childNodes);
     el.textContent = '';
 
-    let letterIndex = 0; // keeps counting across a <br>, so it still reads as one continuous reveal
+    let letterIndex = 0;
     let totalLetters = 0;
 
     originalNodes.forEach(node => {
@@ -95,16 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Split into words first, and wrap each word's letters together in
-      // their own inline-block, nowrap span. This keeps every word visually
-      // intact as one unbreakable unit - important because once individual
-      // letters become separate inline-block elements (needed so each one
-      // can animate independently), the browser loses any sense of "this is
-      // one word" and can otherwise insert a line break between ANY two
-      // letters, not just at real spaces - which is exactly what was causing
-      // titles to wrap mid-word (e.g. "Record" splitting into "Rec"/"ord").
-      // A real space character (not part of any word-span) sits between the
-      // word-spans below, so the browser can still wrap normally there.
+      // Each word gets wrapped in its own nowrap span so letters can still
+      // animate individually without the browser losing track of word
+      // boundaries (which otherwise lets it break lines mid-word). Real
+      // spaces sit between word-spans so normal wrapping still works.
       const words = node.textContent.split(' ');
       words.forEach((word, wordIdx) => {
         if (word.length > 0) {
@@ -123,13 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
           el.appendChild(wordSpan);
         }
         if (wordIdx < words.length - 1) {
-          el.appendChild(document.createTextNode(' ')); // a normal, real space - a genuine break opportunity
+          el.appendChild(document.createTextNode(' '));
         }
       });
     });
 
-    // Queue up the next reveal-text element (if there is one) to start right
-    // after this one's last letter finishes animating in.
     nextStartDelay = nextStartDelay + (totalLetters - 1) * letterDelayMs + letterAnimMs + tagGapMs;
   });
 });
