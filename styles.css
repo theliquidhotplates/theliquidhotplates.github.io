@@ -205,7 +205,7 @@ h3 {
 
 /* Homepage hero with background image */
 .hero-home {
-  background-image: url('images/home_img.jpg');
+  background-image: url('home-images/home_img.jpg');
   background-size: cover;
   background-position: center; /* CHANGE: center top, center bottom, 50% 30%, etc. */
   background-repeat: no-repeat;
