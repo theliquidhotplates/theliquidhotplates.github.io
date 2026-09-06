@@ -1,18 +1,15 @@
-/* ====================================================================
-   THE LIQUID HOTPLATES - WEBSITE STYLES
-   ==================================================================== */
+
 
 /* ===== FONTS ===== */
 @import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap');
 
-/* DM Sans - main site font, headers and body. Real variable font hosted on
-   Google Fonts, so this just works with no extra setup on your end. */
+/* DM Sans - main site font, hosted on google fonts so u can just get using api */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
 
 /* ============== LOGO ========== */
 .logo-img {
-  height: 32px; /* CHANGE: Adjust logo size */
+  height: 40px; /* YOU CAN ADJUST LOGO SIZE FROM HERE*/
   width: auto;
   object-fit: contain;
 }
@@ -53,13 +50,11 @@ body {
   backdrop-filter: blur(10px);
   z-index: 1000;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.6rem 0; /* CHANGE: smaller = skinnier bar */
+  padding: 0.6rem 0; /* YOU CAN CHANGE; SMALLER = SKINNIER BAR */
 }
 
-/* 3-column grid: logo | pill nav | (empty) — this keeps the pill
-   nav perfectly centered no matter how wide the logo/name is.
-   minmax(0, 1fr) instead of plain 1fr lets these columns actually shrink
-   when space gets tight, instead of forcing their content to overflow/wrap. */
+/* 3-column grid: logo | pill nav | (empty)
+    this keeps the pill nav perfectly centered no matter how wide the logo/name is.*/
 .nav-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -77,21 +72,16 @@ body {
   min-width: 0; /* lets this shrink below the site-name's natural width instead of forcing the row taller */
 }
 
-/* Keeps the site name on one line at "half screen" widths instead of
-   wrapping onto two lines, which was pushing the whole navbar taller there.
-   If it ever gets squeezed past fitting entirely, it truncates with an
-   ellipsis rather than wrapping or breaking the layout. */
+/* Keeps the site name on one line at "half screen" widths*/
 .site-name {
-  font-size: 1.15rem; /* CHANGE: smaller = skinnier bar */
+  font-size: 1.15rem; /* YOU CAN CHANGE; smaller = skinnier bar*/
   font-weight: 700;
   color: var(--off-white);
   letter-spacing: -0.5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-width: 0; /* without this, a flex child (like this one) refuses to shrink below its
-                   text's natural width even with overflow/ellipsis set - same gotcha as
-                   the grid version of this bug, just one level deeper */
+  min-width: 0; 
 }
 
 /* The floating pill/capsule that holds all the nav links */
@@ -108,7 +98,7 @@ body {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 50px;
-  padding: 0.3rem; /* CHANGE: smaller = skinnier bar */
+  padding: 0.3rem; /* CAN CHANGE: smaller = skinnier bar */
 }
 
 .nav-links a {
@@ -118,7 +108,7 @@ body {
   font-weight: 500;
   font-size: 0.88rem;
   letter-spacing: 0.3px;
-  padding: 0.5rem 1.2rem; /* CHANGE: bigger = fatter pills, smaller = tighter */
+  padding: 0.5rem 1.2rem; /* CAN CCHANGE: bigger = fatter pills, smaller = tighter */
   border-radius: 50px;
   border: 1px solid transparent; /* reserves space for the hover border below, so nothing shifts/resizes on hover */
   transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
@@ -126,7 +116,7 @@ body {
 
 .nav-links a:hover,
 .nav-links a.active {
-  background: rgba(9, 83, 234, 0.18); /* CHANGE: raise for more fill, lower for more see-through */
+  background: rgba(9, 83, 234, 0.18); /* CAN CHANGE: raise for more fill, lower for more see-through */
   border-color: var(--royal-blue);
   color: var(--off-white);
 }
@@ -207,17 +197,14 @@ h3 {
 .hero-home {
   background-image: url('home-images/home_img.jpg');
   background-size: cover;
-  background-position: center; /* CHANGE: center top, center bottom, 50% 30%, etc. */
+  background-position: center; /* CAN CHANGE: center top, center bottom, 50% 30%, etc. */
   background-repeat: no-repeat;
-  min-height: 100vh; /* CHANGE: full-screen hero image */
+  min-height: 100vh; /* CAN CHANGE: full-screen hero image */
 }
 
-/* Event subpage hero - same full-screen treatment as the homepage hero above,
-   just with a per-event background image set inline on the <section> itself
-   (style="background-image: url('...')") since every event's photo is different.
-   Combine with the base .hero class, e.g. class="hero event-hero". */
+/* Event subpage hero - same full-screen treatment as the homepage hero */
 .event-hero {
-  min-height: 100vh; /* CHANGE: full-screen hero, matching the homepage */
+  min-height: 100vh; /* CAN CHANGE: full-screen hero, matching the homepage */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -230,7 +217,7 @@ h3 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.65); /* CHANGE: 0.65 = 65% dark, adjust 0-1 */
+  background: rgba(0, 0, 0, 0.65); /* CAN CHANGE: 0.65 = 65% dark, adjust 0-1 */
   z-index: 1;
 }
 
@@ -238,10 +225,7 @@ h3 {
   position: relative;
   z-index: 2; /* Keeps text above overlay */
   max-width: 900px;
-  min-width: 0; /* .hero-content is a flex child of .hero - without this, a flex child won't shrink below
-                   its own content's natural width, which was letting long date/location lines (like
-                   "May 16th, 2026 - Khaira Lecture Hall, UC Davis") overflow off the edge on narrow phone
-                   screens instead of wrapping onto a second line like they should. */
+  min-width: 0; /* .hero-content is a flex child of .hero*/
 }
 
 .hero h1 {
@@ -249,17 +233,7 @@ h3 {
   font-size: clamp(1.9rem, 8vw, 4.5rem); /* scales continuously with screen width - no JS needed */
 }
 
-/* Letter-by-letter reveal animation for any heading with class="reveal-text".
-   Unlike a typewriter (which inserts one character into the page every
-   ~90ms - can look a little janky since the browser has to reflow the layout
-   on every single insert), this renders the whole title up front as
-   individual letters, each starting invisible, then lets CSS animate them
-   all in with a staggered delay. That's a single smooth animation instead of
-   repeated DOM edits, so it reads much smoother. The actual letter-splitting
-   happens in JS - see js/reveal-text.js, included near the bottom of every
-   page that uses this (adjust the script src path for how deep the page is).
-   Used on: the homepage hero, the Events page title, and every event
-   subpage's hero title/date line. */
+/* Letter-by-letter reveal animation for any heading with class="reveal-text".*/
 .reveal-text .letter {
   display: inline-block;
   opacity: 0;
@@ -282,8 +256,7 @@ h3 {
 }
 
 /* Same letter-reveal treatment as the title, applied to the tagline/date
-   line underneath it - just delayed so it starts right as the title finishes
-   (the delay math for that is handled automatically in js/reveal-text.js). */
+   line underneath it BUT DELAYED so its after tit;e*/
 .hero p.reveal-text .letter {
   animation-name: letter-reveal-tagline;
 }
@@ -383,8 +356,7 @@ h3 {
   box-shadow: 0 10px 25px rgba(9, 83, 234, 0.4);
 }
 
-/* Small, subtle "back" link for event subpages - sits right under the hero
-   (see the <div> wrapping it in each event page's HTML), not a loud button. */
+/* Small, subtle "back" link for event subpages - sits right under the hero */
 .back-link {
   display: inline-block;
   color: rgba(255, 255, 255, 0.5);
@@ -413,7 +385,7 @@ h3 {
 .flip-card {
   background-color: transparent;
   width: 100%;
-  height: 460px; /* CHANGE: Adjust card height */
+  height: 460px; /* CAN CHANGE: Adjust card height */
   perspective: 1000px;
 }
 
@@ -427,10 +399,8 @@ h3 {
 }
 
 /* Hover-based flip only applies on devices with a real mouse/pointer -
-   without this restriction, tapping on touch devices triggers a simulated
-   :hover state that can get stuck active independently of the .flipped
-   class below (from js/flip-cards.js), causing a card to stay visually
-   flipped even after tapping it again correctly removed that class. */
+   otherwise flipped state gets activeted independently
+   inputted as a bug fix*/
 @media (hover: hover) and (pointer: fine) {
   .flip-card:hover .flip-card-inner {
     transform: rotateY(180deg);
@@ -448,9 +418,7 @@ h3 {
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-transform: translateZ(0); /* nudges iOS Safari into a proper compositing layer for this
-                                        element - without it, backface-visibility can fail to hide
-                                        the back face on iOS specifically, showing both faces at once */
+  -webkit-transform: translateZ(0); /* nudges iOS Safari into a proper compositing layer for this element*/
   transform: translateZ(0);
   border-radius: 20px;
   display: flex;
@@ -458,12 +426,7 @@ h3 {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Front of card — photo fills the entire card, text overlays the bottom.
-   Note: NOT using overflow:hidden here on purpose - combining overflow:hidden
-   with backface-visibility:hidden on the same element is a known iOS Safari
-   bug that breaks the hiding, showing both card faces at once (mirrored) on
-   the flip. Corner-clipping is handled per-layer instead - see .member-photo
-   and the ::after gradient below, which each get their own border-radius. */
+/* Front of card — photo fills the entire card, text overlays the bottom. */
 .flip-card-front {
   background: var(--light-gray); /* fallback color if a photo is missing/slow to load */
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -479,9 +442,8 @@ h3 {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 42%; /* CHANGE: how far up the gradient reaches (roughly bottom 1/5–2/5 of the card) */
-  border-radius: 0 0 20px 20px; /* rounds just the bottom corners, matching the card's own radius,
-                                    now that this can't rely on the parent's overflow:hidden anymore */
+  height: 42%; /* CAN CHANGE: how far up the gradient reaches (roughly bottom 1/5–2/5 of the card) */
+  border-radius: 0 0 20px 20px; /* rounds just the bottom corners */
   background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.55) 35%, rgba(0, 0, 0, 0) 100%);
   pointer-events: none; /* lets clicks/hover pass through to the card underneath */
   z-index: 1;
@@ -493,24 +455,21 @@ h3 {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(9, 83, 234, 0.3);
   color: var(--off-white);
-  transform: rotateY(180deg) translateZ(0); /* combined with translateZ(0) here, not left as a separate
-                                                declaration, since a later transform on the same element
-                                                fully replaces an earlier one rather than combining with it */
+  transform: rotateY(180deg) translateZ(0);
   padding: 2rem 1.5rem;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
 
-/* Member photo — now fills the entire front of the card as a background layer */
+/* Member photo*/
 .member-photo {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 20px; /* clips itself to match the card's rounded corners - see the note on
-                           .flip-card-front above for why this can't rely on the parent anymore */
+  border-radius: 20px; /* clips itself to match the card's rounded corners*/
   overflow: hidden;
   margin: 0;
   background: var(--light-gray);
@@ -528,7 +487,7 @@ h3 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 20%; /* CHANGE: crops from a point 20% down from the top instead of dead-center,
+  object-position: center 20%; /* CAN CHANGE: crops from a point 20% down from the top instead of dead-center,
                                    so heads stay in frame instead of getting sliced off */
 }
 
@@ -538,10 +497,10 @@ h3 {
   z-index: 2;
 }
 
-/* Info section at bottom - NO wrapper div needed, just direct children */
+/* Info section at bottom*/
 .flip-card-front h3 {
-  font-size: 1.35rem; /* CHANGE: Name size */
-  margin-bottom: 0.2rem; /* CHANGE: Space after name */
+  font-size: 1.35rem; /* CAN CHANGE: Name size */
+  margin-bottom: 0.2rem; /* CAN CHANGE: Space after name */
   font-weight: 600;
   color: var(--off-white);
   line-height: 1.2;
@@ -552,15 +511,15 @@ h3 {
 .flip-card-front .member-title {
   color: #FF6B35;
   font-weight: 600;
-  font-size: 0.7rem; /* CHANGE: Title size */
+  font-size: 0.7rem; /* can CHANGE: Title size */
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 0.15rem; /* CHANGE: Space after title */
+  margin-bottom: 0.15rem; /* CAN CHANGE: Space after title */
 }
 
 /* Orange award badge for members */
 .member-award {
-  color: #FF6B35; /* Orange color */
+  color: #FF6B35; /* Orange color; CAN CHANGE the shade if you want*/
   font-weight: 600;
   font-size: 0.7rem;
   text-transform: uppercase;
@@ -579,15 +538,15 @@ h3 {
 /* Voice part (Soprano, Alto, etc.) */
 .flip-card-front .member-part {
   color: rgba(255, 255, 255, 0.85);
-  font-size: 0.85rem; /* CHANGE: Part size */
-  margin-bottom: 0.1rem; /* CHANGE: Space after part */
+  font-size: 0.85rem; /* CAN CHANGE: Part size */
+  margin-bottom: 0.1rem; /* CAN CHANGE: Space after part */
   font-weight: 500;
 }
 
 /* Graduation year */
 .flip-card-front .member-year {
   color: rgba(255, 255, 255, 0.65);
-  font-size: 0.85rem; /* CHANGE: Year size */
+  font-size: 0.85rem; /* can CHANGE: Year size */
   font-weight: 400;
   margin-bottom: 0; /* No space after year */
 }
@@ -722,17 +681,10 @@ h3 {
    ==================================================================== */
 
 .alumni-section {
-  background: rgba(26, 26, 26, 0.35); /* CHANGE: #1A1A1A with some transparency - the alpha (0.35) is what lets the
-                                          aurora glow behind the page show through; raise it toward 1 for a more
-                                          solid/opaque gray, lower it for more of the glow to bleed through */
+  background: rgba(26, 26, 26, 0.35); /*can CHANGE: #1A1A1A with some transparency*/
 }
 
-/* Closes the gap between this section's background and the footer right
-   below it - footer normally has margin-top:4rem for breathing room after a
-   plain black section, but that same margin creates a visible black gap
-   between two colored backgrounds when they're meant to sit flush. Scoped to
-   only apply when .alumni-section is immediately followed by the footer, so
-   it doesn't affect footer spacing on any other page. */
+/* Closes the gap between this section's background and the footer */
 .alumni-section + footer {
   margin-top: 0;
 }
@@ -753,10 +705,7 @@ h3 {
    EVENTS TIMELINE (vertical) - EVENTS PAGE
    ==================================================================== */
 
-/* Aurora background accent - subtle blurred, slowly-drifting color blobs
-   fixed behind the page content. Currently used on the Events page only (see
-   the <div class="page-aurora-bg"> right after <body> in events.html) - to
-   reuse it on another page, just add that same div to that page's <body>. */
+/* Aurora background accent*/
 .page-aurora-bg {
   position: fixed;
   inset: 0;
@@ -772,8 +721,8 @@ h3 {
   width: 55vw;
   height: 55vw;
   border-radius: 50%;
-  filter: blur(120px); /* CHANGE: bigger = softer/more diffuse glow */
-  opacity: 0.28; /* CHANGE: raise for a more visible glow, lower for more subtle */
+  filter: blur(120px); /* can CHANGE: bigger = softer/more diffuse glow */
+  opacity: 0.28; /* Can CHANGE: raise for a more visible glow, lower for more subtle */
 }
 
 .page-aurora-bg::before {
@@ -784,31 +733,24 @@ h3 {
 }
 
 .page-aurora-bg::after {
-  background: #3d7bf5; /* CHANGE: a lighter shade of --royal-blue, for a bit of depth without going purple */
+  background: #3d7bf5; /* can CHANGE: a lighter shade of --royal-blue, for a bit of depth without going purple */
   bottom: -20%;
   right: -10%;
   animation: aurora-drift-b 24s ease-in-out infinite alternate;
 }
 
-/* Smaller variant - e.g. for pages with less content, where the full-size
-   glow would feel overwhelming. Add class="small" alongside page-aurora-bg. */
+/* Smaller variant - e.g. for pages with less content*/
 .page-aurora-bg.small::before,
 .page-aurora-bg.small::after {
-  width: 32vw; /* CHANGE: smaller = tighter, more contained glow */
+  width: 32vw; /* can CHANGE: smaller = tighter, more contained glow */
   height: 32vw;
   opacity: 0.22;
 }
 
-/* Third color blob (orange) - a real nested element, since ::before/::after
-   are already both used by the two blue blobs above and an element can only
-   have two pseudo-elements. Add <div class="aurora-blob-orange"></div> inside
-   <div class="page-aurora-bg"> on any page that wants this third accent color
-   (currently just the Contact page). Matches the site's existing orange
-   accent (used on member titles/award badges) rather than introducing a new
-   color to the palette. */
+/* Third color blob (orange)*/
 .aurora-blob-orange {
   position: absolute;
-  width: 40vw; /* CHANGE: bigger/smaller = stronger/more subtle glow, same idea as the two blue blobs */
+  width: 40vw; /* can CHANGE: bigger/smaller = stronger/more subtle glow, same idea as the two blue blobs */
   height: 40vw;
   border-radius: 50%;
   filter: blur(120px);
@@ -825,17 +767,12 @@ h3 {
   opacity: 0.18;
 }
 
-/* Grain/noise texture layer - a tiny tiled fractal-noise SVG, laid on top of
-   the color blobs with mix-blend-mode so it reads as texture/grain rather
-   than a separate visible layer, breaking up the smooth gradient banding.
-   Needs its own real element (not a 3rd pseudo-element - each element only
-   gets ::before/::after) - see the nested <div class="aurora-noise"> inside
-   <div class="page-aurora-bg"> in the HTML. */
+/* Grain/noise texture layer - a tiny tiled fractal-noise SVG*/
 .aurora-noise {
   position: absolute;
   inset: 0;
   z-index: 1; /* sits above the ::before/::after color blobs */
-  opacity: 0.05; /* CHANGE: raise for more visible grain, lower for more subtle */
+  opacity: 0.05; /* can CHANGE: raise for more visible grain, lower for more subtle */
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -857,12 +794,7 @@ h3 {
   margin: 0 auto;
 }
 
-/* Page title, left-aligned to line up with the timeline's vertical line below it.
-   The 0.875rem offset = half the width of the .timeline-marker column (1.75rem / 2)
-   - i.e. exactly where the dots and connecting line sit. (Note: the timeline
-   item's own padding doesn't factor in here, since its matching negative
-   margin cancels it out.) If you resize .timeline-marker later, update this
-   to match - it should always be half of that width. */
+/* Page title, left-aligned to line up with the timeline's vertical line below it.*/
 .events-page-header {
   padding-left: 0.875rem;
   margin-bottom: 2.5rem;
@@ -912,7 +844,7 @@ h3 {
 }
 
 .timeline-item:hover {
-  background: rgba(100, 116, 150, 0.22); /* CHANGE: a muted blue-grey - raise the 0.22 for more solid, lower for more see-through */
+  background: rgba(100, 116, 150, 0.22); /* can CHANGE: a muted blue-grey - raise the 0.22 for more solid, lower for more see-through */
 }
 
 /* Dot + connecting line column */
@@ -1019,8 +951,7 @@ h3 {
   display: inline-block;
 }
 
-/* Wrap a name in this anywhere in an event page's body text to call it out -
-   e.g. "<span class="name-highlight">Lik Yau Chow</span> took home Best VP." */
+/* Wrap a name in this anywhere in an event page's body text to call it out*/
 .name-highlight {
   color: var(--royal-blue);
   font-weight: 600;
@@ -1030,14 +961,13 @@ h3 {
    TETRIS / MASONRY PHOTO GALLERY
    Reusable in two places: event subpage photo galleries (plain), and the
    homepage's "Through The Years" gallery (with a hover year-label overlay).
+
    Uses CSS columns rather than a manually-sized grid, so it automatically
-   flows however many photos you add - no per-photo sizing to maintain, and
-   it naturally packs together (the "tetris" look) since each photo just
-   keeps its own real aspect ratio instead of being cropped to a fixed box.
+   flows however many photos you add
    ==================================================================== */
 
 .tetris-gallery {
-  columns: 2 420px; /* CHANGE: "2" = target column count, "420px" = minimum width per column before it drops to fewer columns on narrower screens */
+  columns: 2 420px; /* can CHANGE: "2" = target column count, "420px" = minimum width per column before it drops to fewer columns on narrower screens */
   column-gap: 1rem;
 }
 
@@ -1064,8 +994,7 @@ h3 {
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  transition: box-shadow 0.3s ease; /* the glow below animates on this wrapper - the inner img can't
-                                        show its own shadow since this wrapper clips it via overflow:hidden */
+  transition: box-shadow 0.3s ease; /* the glow below animates on this wrapper*/
 }
 
 .tetris-gallery-item:hover {
@@ -1091,7 +1020,7 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem; /* CHANGE: was 1.6rem - now sized like normal body text instead of a big display number */
+  font-size: 1rem; 
   font-weight: 700;
   color: var(--off-white);
   opacity: 0;
@@ -1148,8 +1077,7 @@ footer p {
    ==================================================================== */
 
 @media (max-width: 768px) {
-  /* Stack the nav vertically: logo on top, pill nav in its own row below,
-     instead of the 3-column desktop grid squeezing everything into one row */
+  /* Stack the nav vertically: logo on top, pill nav in its own row below*/
   .nav-container {
     grid-template-columns: 1fr;
     row-gap: 0.75rem;
@@ -1170,13 +1098,12 @@ footer p {
     grid-column: 1;
     justify-self: stretch;
     width: 100%;
-    min-width: 0; /* without this, a grid item refuses to shrink below its content's
-                     natural width - which was silently forcing the whole pill wider
-                     than the screen on narrow phones instead of letting it scroll */
+    min-width: 0; /* need this so grid items shrink below its content's
+                     natural width*/
   }
 
   .nav-links {
-    /* Smaller pills so all 4 links have a better chance of fitting on one line... */
+    /* Smaller pills so all 4 links have a better chance of fitting on one line*/
     gap: 0;
     justify-content: center;
     /* ...and if they still don't fit on a very narrow phone, scroll sideways
@@ -1216,22 +1143,14 @@ footer p {
   /* Hero/event photos are often wide group shots - background-size:cover
      (the desktop default) crops the sides off to fill a narrow, tall phone
      screen, which can cut people out of the frame entirely. On mobile, show
-     the whole photo instead (uncropped), even if that means it displays
-     smaller with some empty space above/below - everyone in the shot stays
-     visible, which matters more here than filling every pixel.
-     Anchoring to the top (instead of the default center) keeps the photo
-     acting like a real header/banner sitting at the top of the page, with
-     the title text pushed toward the bottom of the box instead of sitting
-     centered on top of the photo. */
+     the whole photo instead (uncropped)*/
   .hero-home,
   .event-hero {
-    min-height: 70vh; /* CHANGE: shorter than the desktop 100vh, so this isn't a mostly-empty full screen once the photo is uncropped */
+    min-height: 70vh; /* can CHANGE: shorter than the desktop 100vh, so this isn't a mostly-empty full screen once the photo is uncropped */
     background-size: contain;
     background-position: top center;
     background-origin: content-box; /* makes "top" mean "top of the content area" (i.e. below this box's own
-                                         top padding) rather than the literal top edge of the box - without this,
-                                         the image's top portion renders hidden behind the fixed nav bar, since a
-                                         background-image normally ignores padding and paints from the very top */
+                                         top padding) rather than the literal top edge of the box */
     background-color: var(--black); /* fills the empty space left/right or top/bottom around the now-uncropped photo */
     align-items: flex-end; /* pushes the title/date text toward the bottom of the box, away from the top-anchored photo */
     padding-bottom: 3rem;
