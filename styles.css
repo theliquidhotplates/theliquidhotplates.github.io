@@ -1084,11 +1084,7 @@ footer p {
     padding: 0 4%;
   }
 
-  /* The desktop layout explicitly places these in column 1 and column 2
-     (see .nav-left / .nav-pill above). On mobile the container above only has
-     ONE column - without resetting these back to column 1 too, nav-pill's
-     leftover "column 2" request silently creates a second, off-screen column,
-     which is what was pushing the nav links past the edge of the screen. */
+  /* The desktop layout explicitly places these in column 1 and column 2*/
   .nav-left {
     grid-column: 1;
     justify-self: center;
