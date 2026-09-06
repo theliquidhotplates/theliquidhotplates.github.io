@@ -426,7 +426,17 @@ h3 {
   transform-style: preserve-3d;
 }
 
-.flip-card:hover .flip-card-inner,
+/* Hover-based flip only applies on devices with a real mouse/pointer -
+   without this restriction, tapping on touch devices triggers a simulated
+   :hover state that can get stuck active independently of the .flipped
+   class below (from js/flip-cards.js), causing a card to stay visually
+   flipped even after tapping it again correctly removed that class. */
+@media (hover: hover) and (pointer: fine) {
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+}
+
 .flip-card.flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
@@ -651,7 +661,12 @@ h3 {
   transform-style: preserve-3d;
 }
 
-.info-flip-card:hover .info-flip-inner,
+@media (hover: hover) and (pointer: fine) {
+  .info-flip-card:hover .info-flip-inner {
+    transform: rotateY(180deg);
+  }
+}
+
 .info-flip-card.flipped .info-flip-inner {
   transform: rotateY(180deg);
 }
